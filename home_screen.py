@@ -13,7 +13,7 @@ class App():
         self.taskbar_frame=Frame(background="#F6BD60", width=w_width, height=50)
         self.taskbar_frame.pack()
 
-        self.home_button=Button(self.taskbar_frame, image="", width=4, height=1)
+        self.home_button=Button(self.taskbar_frame, image=home_button, width=4, height=1)
         self.home_button.place(x=160, y=10)
 
         self.stats_button=Button(self.taskbar_frame, text="Stats", width=4, height=1,command=exit)
