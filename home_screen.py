@@ -8,9 +8,11 @@ class App():
         self.window=Tk()
         self.window.geometry(str(w_width) +"x"+ str(w_height))
         self.window.title("My App")
-
+        
         image_home=Image.open("images/Home.png")
         home_icon=ImageTk.PhotoImage(image_home.resize((30,30)))
+        image_settings=Image.open("images/Settings.png")
+        settings_icon=ImageTk.PhotoImage(image_settings.resize((25,25)))
 
         self.main_frame = Frame(background="#F7EDE2", width=w_width, height=625)
         self.main_frame.pack()
@@ -18,15 +20,16 @@ class App():
 
         self.taskbar_frame=Frame(background="#F6BD60", width=w_width, height=50)
         self.taskbar_frame.pack()
+        self.taskbar_frame.pack_propagate(False)
 
-        self.home_button=Button(self.taskbar_frame, image=home_icon, width=20, height=20)
-        self.home_button.place(x=160, y=10)
+        self.home_button=Button(self.taskbar_frame, image=home_icon, background="#F6BD60", width=30, height=30)
+        self.home_button.place(x=160, y=7)
 
         self.stats_button=Button(self.taskbar_frame, text="Stats", width=4, height=1,command=exit)
-        self.stats_button.place(x=60, y=10)
+        self.stats_button.place(x=60, y=7)
 
-        self.settings_button=Button(self.taskbar_frame, text="Settings", width=4, height=1, command=exit)
-        self.settings_button.place(x=260, y=10)
+        self.settings_button=Button(self.taskbar_frame, image=settings_icon, background="#F6BD60", width=30, height=30, command=exit)
+        self.settings_button.place(x=260, y=7)
 
         self.window.mainloop()
 
