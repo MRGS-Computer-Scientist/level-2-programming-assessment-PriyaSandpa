@@ -7,7 +7,7 @@ class App():
         self.window.geometry(str(w_width) +"x"+ str(w_height))
         self.window.title("My App")
 
-        home=PhotoImage(file="Home.png")
+        home=PhotoImage(file="images/Home.png")
 
         self.main_frame = Frame(background="#F7EDE2", width=w_width, height=625)
         self.main_frame.pack()
