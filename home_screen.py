@@ -26,13 +26,13 @@ class App():
         self.taskbar_frame.pack_propagate(False)
 
         self.home_button=Button(self.taskbar_frame, image=home_icon, background=taskbar_bg_standard, width=30, height=30, highlightthickness=0, bd=0)
-        self.home_button.place(x=160, y=7)
+        self.home_button.place(x=165, y=10)
 
         self.stats_button=Button(self.taskbar_frame, image=stats_icon, background=taskbar_bg_standard, width=30, height=30, highlightthickness=0, bd=0, command=exit)
-        self.stats_button.place(x=60, y=7)
+        self.stats_button.place(x=55, y=10)
 
         self.settings_button=Button(self.taskbar_frame, image=settings_icon, background=taskbar_bg_standard, width=30, height=30, highlightthickness=0, bd=0, command=exit)
-        self.settings_button.place(x=260, y=7)
+        self.settings_button.place(x=275, y=10)
 
         self.window.mainloop()
 
