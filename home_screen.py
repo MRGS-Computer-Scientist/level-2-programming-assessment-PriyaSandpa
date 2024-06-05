@@ -27,16 +27,16 @@ class App():
         self.taskbar_frame.pack()
         self.taskbar_frame.pack_propagate(False)
 
-        self.home_button=Button(self.taskbar_frame, image=home_icon, background=taskbar_bg_standard, width=30, height=30, highlightthickness=0, bd=0)
+        self.home_button=Button(self.taskbar_frame, image=home_icon, background=taskbar_bg_standard, width=30, height=30, highlightthickness=0, bd=0, activebackground=taskbar_bg_standard)
         self.home_button.place(x=165, y=10)
 
-        self.stats_button=Button(self.taskbar_frame, image=stats_icon, background=taskbar_bg_standard, width=30, height=30, highlightthickness=0, bd=0, command=exit)
+        self.stats_button=Button(self.taskbar_frame, image=stats_icon, background=taskbar_bg_standard, width=30, height=30, highlightthickness=0, bd=0, command=exit, activebackground=taskbar_bg_standard)
         self.stats_button.place(x=55, y=10)
 
-        self.settings_button=Button(self.taskbar_frame, image=settings_icon, background=taskbar_bg_standard, width=30, height=30, highlightthickness=0, bd=0, command=exit)
+        self.settings_button=Button(self.taskbar_frame, image=settings_icon, background=taskbar_bg_standard, width=30, height=30, highlightthickness=0, bd=0, command=exit, activebackground=taskbar_bg_standard)
         self.settings_button.place(x=275, y=10)
 #--Help Button-------------------------------------------------------------------
-        self.help_button=Button(self.main_frame, image=help_icon, background=main_bg_standard, width=40, height=40, highlightthickness=0, bd=0, border=0)
+        self.help_button=Button(self.main_frame, image=help_icon, background=main_bg_standard, width=40, height=40, highlightthickness=0, bd=0, border=0, activebackground=main_bg_standard)
         self.help_button.place(x=310, y=15)
 #--Mainloop----------------------------------------------------------------------
         self.window.mainloop()
