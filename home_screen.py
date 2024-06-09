@@ -18,33 +18,33 @@ class App():
         settings_icon=ImageTk.PhotoImage(image_settings.resize((25,25)))
         image_help=Image.open("images/Help.png")
         help_icon=ImageTk.PhotoImage(image_help.resize((40,40)))      
-#--Main--------------------------------------------------------------------------
-        self.main_frame = Frame(background=main_bg_standard, 
-                                width=w_width, 
-                                height=675)
-        self.main_frame.pack()
-        self.main_frame.pack_propagate(False)
-        self.home_label=Label(self.main_frame,
-                              text="Home", 
-                              font="Verdana 30", 
-                              background=main_bg_standard)
+#--Home--------------------------------------------------------------------------
+        self.home_frame = Frame(background=main_bg_standard, 
+                                    width=w_width, 
+                                    height=675)
+        self.home_frame.pack()
+        self.home_frame.pack_propagate(False)
+        self.home_label=Label(self.home_frame,
+                                  text="Home", 
+                                  font="Verdana 30", 
+                                  background=main_bg_standard)
         self.home_label.pack()
-        
+#--Stats-------------------------------------------------------------------------        
         self.stats_frame = Frame(background=main_bg_standard, 
-                                 width=w_width, 
-                                 height=675)
-        self.stats_frame.pack()
+                                    width=w_width, 
+                                    height=675)
+        self.stats_frame.pack_forget()
         self.stats_frame.pack_propagate(False)
         self.stats_label=Label(self.stats_frame,
-                               text="Stats", 
-                               font="Verdana 30", 
-                               background=main_bg_standard)
+                                  text="Stats", 
+                                  font="Verdana 30", 
+                                  background=main_bg_standard)
         self.stats_label.pack()
-        
+#--Settinga----------------------------------------------------------------------        
         self.settings_frame = Frame(background=main_bg_standard, 
                                     width=w_width, 
                                     height=675)
-        self.settings_frame.pack()
+        self.settings_frame.pack_forget()
         self.settings_frame.pack_propagate(False)
         self.settings_label=Label(self.settings_frame,
                                   text="Settings", 
@@ -57,15 +57,14 @@ class App():
                                  height=50)
         self.taskbar_frame.place(x=0, y=w_height-50)
 
-        self.home_button=Button(self.taskbar_frame,
-                                image=home_icon, 
-                                background=taskbar_bg_standard, 
-                                width=30, 
-                                height=30, 
-                                highlightthickness=0, 
-                                bd=0, 
-                                activebackground=taskbar_bg_standard, 
-                                command=lambda: self.go_to_frame("Home"))
+        self.home_button=Button(self.taskbar_frame, 
+                                 image=home_icon, 
+                                 background=taskbar_bg_standard, 
+                                 width=30, height=30, 
+                                 highlightthickness=0, 
+                                 bd=0, 
+                                 command=lambda: self.go_to_frame("Home"), 
+                                 activebackground=taskbar_bg_standard)
         self.home_button.place(x=165, y=10)
 
         self.stats_button=Button(self.taskbar_frame, 
@@ -81,15 +80,14 @@ class App():
         self.settings_button=Button(self.taskbar_frame, 
                                     image=settings_icon, 
                                     background=taskbar_bg_standard, 
-                                    width=30, 
-                                    height=30, 
+                                    width=30, height=30, 
                                     highlightthickness=0, 
                                     bd=0, 
                                     command=lambda: self.go_to_frame("Settings"), 
                                     activebackground=taskbar_bg_standard)
         self.settings_button.place(x=275, y=10)
 #--Help Button-------------------------------------------------------------------
-        self.help_button=Button(self.main_frame, 
+        self.help_button=Button(self.home_frame, 
                                 image=help_icon, 
                                 background=main_bg_standard, 
                                 width=40, height=40, 
@@ -103,7 +101,7 @@ class App():
     def go_to_frame(self, next_frame):
 
         if self.current_frame == "Home":
-                self.main_frame.pack_forget()
+                self.home_frame.pack_forget()
         elif self.current_frame == "Stats":
                 self.stats_frame.pack_forget()
         elif self.current_frame == "Settings":
@@ -116,7 +114,7 @@ class App():
                 self.settings_frame.pack()
                 self.current_frame = "Settings"
         elif next_frame == "Home":
-                self.main_frame.pack()
+                self.home_frame.pack()
                 self.current_frame = "Home"
 
 if __name__=="__main__":
