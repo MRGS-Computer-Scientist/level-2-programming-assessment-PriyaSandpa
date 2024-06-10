@@ -9,7 +9,7 @@ class App():
         self.window=Tk()
         self.window.geometry(str(w_width) +"x"+ str(w_height))
         self.window.title("My App")
-#--Image Icons-------------------------------------------------------------------
+#--Image Icons--------------------------------------------------------------------
         image_home=Image.open("images/Home.png")
         home_icon=ImageTk.PhotoImage(image_home.resize((30,30)))
         image_stats=Image.open("images/Stats.png")
@@ -17,8 +17,10 @@ class App():
         image_settings=Image.open("images/Settings.png")
         settings_icon=ImageTk.PhotoImage(image_settings.resize((25,25)))
         image_help=Image.open("images/Help.png")
-        help_icon=ImageTk.PhotoImage(image_help.resize((40,40)))      
-#--Home--------------------------------------------------------------------------
+        help_icon=ImageTk.PhotoImage(image_help.resize((40,40)))  
+        image_exit=Image.open("images/Exit.png")
+        exit_icon=ImageTk.PhotoImage(image_exit.resize((40,40)))      
+#--Home Screen--------------------------------------------------------------------
         self.home_frame = Frame(background=main_bg_standard, 
                                     width=w_width, 
                                     height=675)
@@ -29,7 +31,7 @@ class App():
                                   font="Verdana 30", 
                                   background=main_bg_standard)
         self.home_label.pack()
-#--Stats-------------------------------------------------------------------------        
+#--Stats Screen------------------------------------------------------------------       
         self.stats_frame = Frame(background=main_bg_standard, 
                                     width=w_width, 
                                     height=675)
@@ -40,7 +42,7 @@ class App():
                                   font="Verdana 30", 
                                   background=main_bg_standard)
         self.stats_label.pack()
-#--Settinga----------------------------------------------------------------------        
+#--Settings Screen---------------------------------------------------------------       
         self.settings_frame = Frame(background=main_bg_standard, 
                                     width=w_width, 
                                     height=675)
@@ -51,6 +53,17 @@ class App():
                                   font="Verdana 30", 
                                   background=main_bg_standard)
         self.settings_label.pack()
+#--Help Screen-------------------------------------------------------------------
+        self.help_frame=Frame(background="#FFFFFF",
+                              width=w_width,
+                              height=w_height)
+        self.help_frame.pack_forget()
+        self.help_frame.pack_propagate(False)
+        self.help_label=Label(self.help_frame,
+                              text="Help",
+                              font="Verdana 30",
+                              background="#FFFFFF")
+        self.help_label.pack()
 #--Taskbar-----------------------------------------------------------------------
         self.taskbar_frame=Frame(background=taskbar_bg_standard, 
                                  width=w_width, 
@@ -58,13 +71,13 @@ class App():
         self.taskbar_frame.place(x=0, y=w_height-50)
 
         self.home_button=Button(self.taskbar_frame, 
-                                 image=home_icon, 
-                                 background=taskbar_bg_standard, 
-                                 width=30, height=30, 
-                                 highlightthickness=0, 
-                                 bd=0, 
-                                 command=lambda: self.go_to_frame("Home"), 
-                                 activebackground=taskbar_bg_standard)
+                                image=home_icon, 
+                                background=taskbar_bg_standard, 
+                                width=30, height=30, 
+                                highlightthickness=0, 
+                                bd=0, 
+                                command=lambda: self.go_to_frame("Home"), 
+                                activebackground=taskbar_bg_standard)
         self.home_button.place(x=165, y=10)
 
         self.stats_button=Button(self.taskbar_frame, 
@@ -93,16 +106,18 @@ class App():
                                 width=40, height=40, 
                                 highlightthickness=0, 
                                 bd=0, border=0, 
-                                activebackground=main_bg_standard)
+                                activebackground=main_bg_standard,
+                                command=lambda: self.go_to_frame("Help"))
         self.help_button_1.place(x=310, y=15)
 
         self.help_button_2=Button(self.stats_frame, 
-                                image=help_icon, 
-                                background=main_bg_standard, 
-                                width=40, height=40, 
-                                highlightthickness=0, 
-                                bd=0, border=0, 
-                                activebackground=main_bg_standard)
+                                  image=help_icon, 
+                                  background=main_bg_standard, 
+                                  width=40, height=40, 
+                                  highlightthickness=0, 
+                                  bd=0, border=0, 
+                                  activebackground=main_bg_standard,
+                                  command=lambda: self.go_to_frame("Help"))
         self.help_button_2.place(x=310, y=15)
 
         self.help_button_3=Button(self.settings_frame, 
@@ -111,8 +126,19 @@ class App():
                                 width=40, height=40, 
                                 highlightthickness=0, 
                                 bd=0, border=0, 
-                                activebackground=main_bg_standard)
+                                activebackground=main_bg_standard,
+                                command=lambda: self.go_to_frame("Help"))
         self.help_button_3.place(x=310, y=15)
+#--Exit Button-------------------------------------------------------------------
+        self.exit_button=Button(self.help_frame,
+                                image=exit_icon, 
+                                background=main_bg_standard, 
+                                width=40, height=40, 
+                                highlightthickness=0, 
+                                bd=0, border=0, 
+                                activebackground="#FFFFFF",
+                                command=lambda: self.go_to_frame("Home"))
+        self.exit_button.place(x=30, y=15)
 #--Mainloop----------------------------------------------------------------------
         self.window.mainloop()
     
@@ -124,6 +150,9 @@ class App():
                 self.stats_frame.pack_forget()
         elif self.current_frame == "Settings":
                 self.settings_frame.pack_forget()
+        elif self.current_frame == "Help":
+              self.help_frame.pack_forget()
+              self.taskbar_frame.place(x=0, y=w_height-50)
         
         if next_frame == "Stats":
                 self.stats_frame.pack()
@@ -134,6 +163,10 @@ class App():
         elif next_frame == "Home":
                 self.home_frame.pack()
                 self.current_frame = "Home"
+        elif next_frame == "Help":
+                self.help_frame.pack()
+                self.current_frame="Help"
+                self.taskbar_frame.place_forget()
 
 if __name__=="__main__":
     app=App()
