@@ -87,14 +87,32 @@ class App():
                                     activebackground=taskbar_bg_standard)
         self.settings_button.place(x=275, y=10)
 #--Help Button-------------------------------------------------------------------
-        self.help_button=Button(self.home_frame, 
+        self.help_button_1=Button(self.home_frame, 
                                 image=help_icon, 
                                 background=main_bg_standard, 
                                 width=40, height=40, 
                                 highlightthickness=0, 
                                 bd=0, border=0, 
                                 activebackground=main_bg_standard)
-        self.help_button.place(x=310, y=15)
+        self.help_button_1.place(x=310, y=15)
+
+        self.help_button_2=Button(self.stats_frame, 
+                                image=help_icon, 
+                                background=main_bg_standard, 
+                                width=40, height=40, 
+                                highlightthickness=0, 
+                                bd=0, border=0, 
+                                activebackground=main_bg_standard)
+        self.help_button_2.place(x=310, y=15)
+
+        self.help_button_3=Button(self.settings_frame, 
+                                image=help_icon, 
+                                background=main_bg_standard, 
+                                width=40, height=40, 
+                                highlightthickness=0, 
+                                bd=0, border=0, 
+                                activebackground=main_bg_standard)
+        self.help_button_3.place(x=310, y=15)
 #--Mainloop----------------------------------------------------------------------
         self.window.mainloop()
     
