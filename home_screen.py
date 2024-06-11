@@ -54,7 +54,7 @@ class App():
                                   background=main_bg_standard)
         self.settings_label.pack()
 #--Help Screen-------------------------------------------------------------------
-        self.help_frame=Frame(background="#FFFFFF",
+        self.help_frame=Frame(background=help_bg_standard,
                               width=w_width,
                               height=w_height)
         self.help_frame.pack_forget()
@@ -62,7 +62,7 @@ class App():
         self.help_label=Label(self.help_frame,
                               text="Help",
                               font="Verdana 30",
-                              background="#FFFFFF")
+                              background=help_bg_standard)
         self.help_label.pack()
 #--Taskbar-----------------------------------------------------------------------
         self.taskbar_frame=Frame(background=taskbar_bg_standard, 
@@ -132,11 +132,11 @@ class App():
 #--Exit Button-------------------------------------------------------------------
         self.exit_button=Button(self.help_frame,
                                 image=exit_icon, 
-                                background=main_bg_standard, 
+                                background=help_bg_standard, 
                                 width=40, height=40, 
                                 highlightthickness=0, 
                                 bd=0, border=0, 
-                                activebackground="#FFFFFF",
+                                activebackground=help_bg_standard,
                                 command=lambda: self.go_to_frame("Home"))
         self.exit_button.place(x=30, y=15)
 #--Mainloop----------------------------------------------------------------------
