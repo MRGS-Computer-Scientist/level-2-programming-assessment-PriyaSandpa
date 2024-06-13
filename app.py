@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 from app_settings import *
 from os import *
 from PIL import Image, ImageTk
@@ -99,15 +100,31 @@ class App():
                                     command=lambda: self.go_to_frame("Settings"), 
                                     activebackground=taskbar_bg_standard)
         self.settings_button.place(x=275, y=10)
+#--Add Task Button---------------------------------------------------------------
+        self.addtask_frame=Frame(background=help_bg_standard,
+                                 width=w_width,
+                                 height=w_height)
+        self.addtask_frame.pack_forget()
+        self.addtask_frame.pack_propagate(False)
+        self.addtask_label=Label(self.addtask_frame,
+                                 text="Add Task",
+                                 font="Verdana 30",
+                                 background=help_bg_standard)
+        self.addtask_label.pack()
+        self.addtask_button=Button(self.home_frame, 
+                                   text="Add", 
+                                   background=main_bg_standard,  
+                                   command=lambda: self.go_to_frame("Add"))
+        self.addtask_button.place(x=300, y=w_height-100)
 #--Help Button-------------------------------------------------------------------
         self.help_button_1=Button(self.home_frame, 
-                                image=help_icon, 
-                                background=main_bg_standard, 
-                                width=40, height=40, 
-                                highlightthickness=0, 
-                                bd=0, border=0, 
-                                activebackground=main_bg_standard,
-                                command=lambda: self.go_to_frame("Help"))
+                                  image=help_icon, 
+                                  background=main_bg_standard, 
+                                  width=40, height=40, 
+                                  highlightthickness=0, 
+                                  bd=0, border=0, 
+                                  activebackground=main_bg_standard,
+                                  command=lambda: self.go_to_frame("Help"))
         self.help_button_1.place(x=310, y=15)
 
         self.help_button_2=Button(self.stats_frame, 
@@ -121,16 +138,16 @@ class App():
         self.help_button_2.place(x=310, y=15)
 
         self.help_button_3=Button(self.settings_frame, 
-                                image=help_icon, 
-                                background=main_bg_standard, 
-                                width=40, height=40, 
-                                highlightthickness=0, 
-                                bd=0, border=0, 
-                                activebackground=main_bg_standard,
-                                command=lambda: self.go_to_frame("Help"))
+                                  image=help_icon, 
+                                  background=main_bg_standard, 
+                                  width=40, height=40, 
+                                  highlightthickness=0, 
+                                  bd=0, border=0, 
+                                  activebackground=main_bg_standard,
+                                  command=lambda: self.go_to_frame("Help"))
         self.help_button_3.place(x=310, y=15)
 #--Exit Button-------------------------------------------------------------------
-        self.exit_button=Button(self.help_frame,
+        self.exit_button_help=Button(self.help_frame,
                                 image=exit_icon, 
                                 background=help_bg_standard, 
                                 width=40, height=40, 
@@ -138,10 +155,19 @@ class App():
                                 bd=0, border=0, 
                                 activebackground=help_bg_standard,
                                 command=lambda: self.go_to_frame("Home"))
-        self.exit_button.place(x=30, y=15)
+        self.exit_button_help.place(x=30, y=15)
+        self.exit_button_add=Button(self.addtask_frame,
+                                image=exit_icon, 
+                                background=help_bg_standard, 
+                                width=40, height=40, 
+                                highlightthickness=0, 
+                                bd=0, border=0, 
+                                activebackground=help_bg_standard,
+                                command=lambda: self.go_to_frame("Home"))
+        self.exit_button_add.place(x=30, y=15)
 #--Mainloop----------------------------------------------------------------------
         self.window.mainloop()
-    
+#--Go to frame function----------------------------------------------------------  
     def go_to_frame(self, next_frame):
 
         if self.current_frame == "Home":
@@ -152,6 +178,9 @@ class App():
                 self.settings_frame.pack_forget()
         elif self.current_frame == "Help":
               self.help_frame.pack_forget()
+              self.taskbar_frame.place(x=0, y=w_height-50)
+        elif self.current_frame == "Add":
+              self.addtask_frame.pack_forget()
               self.taskbar_frame.place(x=0, y=w_height-50)
         
         if next_frame == "Stats":
@@ -166,6 +195,10 @@ class App():
         elif next_frame == "Help":
                 self.help_frame.pack()
                 self.current_frame="Help"
+                self.taskbar_frame.place_forget()
+        elif next_frame == "Add":
+                self.addtask_frame.pack()
+                self.current_frame="Add"
                 self.taskbar_frame.place_forget()
 
 if __name__=="__main__":
