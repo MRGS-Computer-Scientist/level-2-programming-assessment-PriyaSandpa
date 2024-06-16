@@ -24,25 +24,25 @@ class App():
         exit_icon=ImageTk.PhotoImage(image_exit.resize((40,40)))     
 #--Home Screen--------------------------------------------------------------------
         self.home_frame = Frame(background=main_bg_standard, 
-                                    width=w_width, 
-                                    height=675)
+                                width=w_width, 
+                                height=675)
         self.home_frame.pack()
         self.home_frame.pack_propagate(False)
         self.home_label=Label(self.home_frame,
-                                  text="Home", 
-                                  font="Verdana 30", 
-                                  background=main_bg_standard)
+                              text="Home", 
+                              font="Verdana 30", 
+                              background=main_bg_standard)
         self.home_label.pack()
 #--Stats Screen------------------------------------------------------------------       
         self.stats_frame = Frame(background=main_bg_standard, 
-                                    width=w_width, 
-                                    height=675)
+                                 width=w_width, 
+                                 height=675)
         self.stats_frame.pack_forget()
         self.stats_frame.pack_propagate(False)
         self.stats_label=Label(self.stats_frame,
-                                  text="Stats", 
-                                  font="Verdana 30", 
-                                  background=main_bg_standard)
+                               text="Stats", 
+                               font="Verdana 30", 
+                               background=main_bg_standard)
         self.stats_label.pack()
 #--Settings Screen---------------------------------------------------------------       
         self.settings_frame = Frame(background=main_bg_standard, 
@@ -67,7 +67,7 @@ class App():
                               background=help_bg_standard)
         self.help_label.pack()
 #--Taskbar-----------------------------------------------------------------------
-        self.taskbar_frame=Frame(self.home_frame,background=taskbar_bg_standard, 
+        self.taskbar_frame=Frame(background=taskbar_bg_standard, 
                                  width=w_width, 
                                  height=50)
         self.taskbar_frame.place(x=0, y=w_height-50)
