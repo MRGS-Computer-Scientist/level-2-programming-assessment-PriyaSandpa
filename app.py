@@ -184,10 +184,10 @@ class App():
                 self.settings_frame.pack_forget()
         elif self.current_frame == "Help":
               self.help_frame.pack_forget()
-              self.taskbar_frame.place(x=0, y=w_height-50)
+              self.taskbar_frame.place(relx=0.5, rely=0.9635, anchor=tk.CENTER)
         elif self.current_frame == "Add":
               self.addtask_frame.pack_forget()
-              self.taskbar_frame.place(x=0, y=w_height-50)
+              self.taskbar_frame.place(relx=0.5, rely=0.9635, anchor=tk.CENTER)
         
         if next_frame == "Stats":
                 self.stats_frame.pack()
