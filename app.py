@@ -1,5 +1,4 @@
 from tkinter import *
-from tkinter import ttk
 from app_settings import *
 from os import *
 from PIL import Image, ImageTk
@@ -18,9 +17,11 @@ class App():
         image_settings=Image.open("images/Settings.png")
         settings_icon=ImageTk.PhotoImage(image_settings.resize((25,25)))
         image_help=Image.open("images/Help.png")
-        help_icon=ImageTk.PhotoImage(image_help.resize((40,40)))  
+        help_icon=ImageTk.PhotoImage(image_help.resize((40,40))) 
+        image_add=Image.open("images/Add.png")
+        add_icon=ImageTk.PhotoImage(image_add.resize((50,50)))
         image_exit=Image.open("images/Exit.png")
-        exit_icon=ImageTk.PhotoImage(image_exit.resize((40,40)))      
+        exit_icon=ImageTk.PhotoImage(image_exit.resize((40,40)))     
 #--Home Screen--------------------------------------------------------------------
         self.home_frame = Frame(background=main_bg_standard, 
                                     width=w_width, 
@@ -66,7 +67,7 @@ class App():
                               background=help_bg_standard)
         self.help_label.pack()
 #--Taskbar-----------------------------------------------------------------------
-        self.taskbar_frame=Frame(background=taskbar_bg_standard, 
+        self.taskbar_frame=Frame(self.home_frame,background=taskbar_bg_standard, 
                                  width=w_width, 
                                  height=50)
         self.taskbar_frame.place(x=0, y=w_height-50)
@@ -111,11 +112,15 @@ class App():
                                  font="Verdana 30",
                                  background=help_bg_standard)
         self.addtask_label.pack()
-        self.addtask_button=Button(self.home_frame, 
-                                   text="Add", 
-                                   background=main_bg_standard,  
+        self.addtask_button=Button(self.home_frame,
+                                   background=main_bg_standard, 
+                                   image=add_icon,
+                                   width=50, height=50, 
+                                   highlightthickness=0, 
+                                   bd=0, border=0, 
+                                   activebackground=main_bg_standard,   
                                    command=lambda: self.go_to_frame("Add"))
-        self.addtask_button.place(x=300, y=w_height-100)
+        self.addtask_button.place(x=295, y=w_height-115)
 #--Help Button-------------------------------------------------------------------
         self.help_button_1=Button(self.home_frame, 
                                   image=help_icon, 
