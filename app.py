@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter as tk
 from app_settings import *
 from os import *
 from PIL import Image, ImageTk
@@ -70,7 +71,7 @@ class App():
         self.taskbar_frame=Frame(background=taskbar_bg_standard, 
                                  width=w_width, 
                                  height=50)
-        self.taskbar_frame.place(x=0, y=w_height-50)
+        self.taskbar_frame.place(relx=0.5, rely=0.9635, anchor=tk.CENTER)
 
         self.home_button=Button(self.taskbar_frame, 
                                 image=home_icon, 
