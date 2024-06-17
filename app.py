@@ -1,5 +1,6 @@
 from tkinter import *
 import tkinter as tk
+from tkinter.font import Font
 from app_settings import *
 import customtkinter as ctk
 from os import *
@@ -24,6 +25,10 @@ class App():
         add_icon=ImageTk.PhotoImage(image_add.resize((50,50)))
         image_exit=Image.open("images/Exit.png")
         exit_icon=ImageTk.PhotoImage(image_exit.resize((40,40)))     
+#--Font---------------------------------------------------------------------------
+        app_font=Font(family="Josefin Sans",
+                      weight="normal",
+                      size="30")
 #--Home Screen--------------------------------------------------------------------
         #Home-Frame
         self.home_frame = Frame(background=main_bg_standard, 
@@ -33,7 +38,7 @@ class App():
         self.home_frame.pack_propagate(False)
         self.home_label=Label(self.home_frame,
                               text="Home", 
-                              font="Verdana 30", 
+                              font=app_font, 
                               background=main_bg_standard)
         self.home_label.pack()
         
@@ -52,11 +57,20 @@ class App():
                                              border_width=1)
         self.progress_bar.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         self.progress_bar.set(0)
-        self.progress=Label(self.home_frame, text="", font=("Helvetica", 45))
+        self.progress=Label(self.home_frame, text="", font=("Josefin Sans", 45), background=main_bg_standard)
         self.progress.place(relx=0.5, rely=0.3, anchor=tk.CENTER)
         self.test_button=Button(self.home_frame, text="Click Me", command=clicker)
-        self.test_button.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
-        
+        self.test_button.place(relx=0.5, rely=0.55, anchor=tk.CENTER)
+        #List
+        self.task_list = Listbox(self.home_frame,
+                                 font=app_font,
+                                 width=w_width-50,
+                                 bg=main_bg_standard,
+                                 bd=0)
+        self.task_list.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
+        self.tasks=["Test 1", "Test 2", "Test 3"]
+        for item in self.tasks:
+               self.task_list.insert(END, item)
 #--Stats Screen------------------------------------------------------------------       
         self.stats_frame = Frame(background=main_bg_standard, 
                                  width=w_width, 
@@ -65,7 +79,7 @@ class App():
         self.stats_frame.pack_propagate(False)
         self.stats_label=Label(self.stats_frame,
                                text="Stats", 
-                               font="Verdana 30", 
+                               font=app_font, 
                                background=main_bg_standard)
         self.stats_label.pack()
 #--Settings Screen---------------------------------------------------------------       
@@ -76,7 +90,7 @@ class App():
         self.settings_frame.pack_propagate(False)
         self.settings_label=Label(self.settings_frame,
                                   text="Settings", 
-                                  font="Verdana 30", 
+                                  font=app_font, 
                                   background=main_bg_standard)
         self.settings_label.pack()
 #--Help Screen-------------------------------------------------------------------
@@ -87,7 +101,7 @@ class App():
         self.help_frame.pack_propagate(False)
         self.help_label=Label(self.help_frame,
                               text="Help",
-                              font="Verdana 30",
+                              font=app_font,
                               background=help_bg_standard)
         self.help_label.pack()
 #--Taskbar-----------------------------------------------------------------------
@@ -133,15 +147,10 @@ class App():
         self.addtask_frame.pack_propagate(False)
         self.addtask_label=Label(self.addtask_frame,
                                  text="Add Task",
-                                 font="Verdana 30",
+                                 font=app_font,
                                  background=help_bg_standard)
         self.addtask_label.pack()
-        #self.add_task=Entry(self.addtask_frame,
-        #                    background="#D3D3D3",
-        #                    bd=0,
-        #                    width=45,
-        #                    highlightthickness=0)
-        #self.add_task.place(relx=0.5, rely=0.2, anchor=tk.CENTER)
+       #entry for adding tasks
         self.addtask_button=Button(self.home_frame,
                                    background=main_bg_standard, 
                                    image=add_icon,
