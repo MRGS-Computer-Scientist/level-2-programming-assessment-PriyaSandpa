@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter as tk
 from app_settings import *
+import customtkinter as ctk
 from os import *
 from PIL import Image, ImageTk
 
@@ -24,6 +25,7 @@ class App():
         image_exit=Image.open("images/Exit.png")
         exit_icon=ImageTk.PhotoImage(image_exit.resize((40,40)))     
 #--Home Screen--------------------------------------------------------------------
+        #Home-Frame
         self.home_frame = Frame(background=main_bg_standard, 
                                 width=w_width, 
                                 height=675)
@@ -34,6 +36,27 @@ class App():
                               font="Verdana 30", 
                               background=main_bg_standard)
         self.home_label.pack()
+        
+        #ProgressBar
+        def clicker():
+               self.progress_bar.step()
+               self.progress.configure(text=(int(self.progress_bar.get()*100),"%"))
+
+        self.progress_bar=ctk.CTkProgressBar(self.home_frame,
+                                             determinate_speed=5.01,
+                                             width=w_width-100,
+                                             height=15,
+                                             fg_color=help_bg_standard,
+                                             progress_color="#84A59D",
+                                             border_color="#D9D9D9",
+                                             border_width=1)
+        self.progress_bar.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        self.progress_bar.set(0)
+        self.progress=Label(self.home_frame, text="", font=("Helvetica", 45))
+        self.progress.place(relx=0.5, rely=0.3, anchor=tk.CENTER)
+        self.test_button=Button(self.home_frame, text="Click Me", command=clicker)
+        self.test_button.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
+        
 #--Stats Screen------------------------------------------------------------------       
         self.stats_frame = Frame(background=main_bg_standard, 
                                  width=w_width, 
@@ -102,7 +125,7 @@ class App():
                                     command=lambda: self.go_to_frame("Settings"), 
                                     activebackground=taskbar_bg_standard)
         self.settings_button.place(x=275, y=10)
-#--Add Task Button---------------------------------------------------------------
+#--Add Task Screen---------------------------------------------------------------
         self.addtask_frame=Frame(background=help_bg_standard,
                                  width=w_width,
                                  height=w_height)
@@ -113,6 +136,12 @@ class App():
                                  font="Verdana 30",
                                  background=help_bg_standard)
         self.addtask_label.pack()
+        self.add_task=Entry(self.addtask_frame,
+                            background="#D3D3D3",
+                            bd=0,
+                            width=45,
+                            highlightthickness=0)
+        self.add_task.place(relx=0.5, rely=0.2, anchor=tk.CENTER)
         self.addtask_button=Button(self.home_frame,
                                    background=main_bg_standard, 
                                    image=add_icon,
@@ -122,7 +151,7 @@ class App():
                                    activebackground=main_bg_standard,   
                                    command=lambda: self.go_to_frame("Add"))
         self.addtask_button.place(x=295, y=w_height-115)
-#--Help Button-------------------------------------------------------------------
+#--Help Buttons-------------------------------------------------------------------
         self.help_button_1=Button(self.home_frame, 
                                   image=help_icon, 
                                   background=main_bg_standard, 
