@@ -136,12 +136,12 @@ class App():
                                  font="Verdana 30",
                                  background=help_bg_standard)
         self.addtask_label.pack()
-        self.add_task=Entry(self.addtask_frame,
-                            background="#D3D3D3",
-                            bd=0,
-                            width=45,
-                            highlightthickness=0)
-        self.add_task.place(relx=0.5, rely=0.2, anchor=tk.CENTER)
+        #self.add_task=Entry(self.addtask_frame,
+        #                    background="#D3D3D3",
+        #                    bd=0,
+        #                    width=45,
+        #                    highlightthickness=0)
+        #self.add_task.place(relx=0.5, rely=0.2, anchor=tk.CENTER)
         self.addtask_button=Button(self.home_frame,
                                    background=main_bg_standard, 
                                    image=add_icon,
