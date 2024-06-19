@@ -20,7 +20,7 @@ class App():
         image_settings=Image.open("images/Settings.png")
         settings_icon=ImageTk.PhotoImage(image_settings.resize((25,25)))
         image_help=Image.open("images/Help.png")
-        help_icon=ImageTk.PhotoImage(image_help.resize((40,40))) 
+        help_icon=ImageTk.PhotoImage(image_help.resize((45,45))) 
         image_add=Image.open("images/Add.png")
         add_icon=ImageTk.PhotoImage(image_add.resize((50,50)))
         image_exit=Image.open("images/Exit.png")
@@ -39,7 +39,8 @@ class App():
         self.home_label=Label(self.home_frame,
                               text="Home", 
                               font=app_font, 
-                              background=main_bg_standard)
+                              background=main_bg_standard,
+                              fg=text_colour)
         self.home_label.pack()
         
         #ProgressBar
@@ -52,12 +53,13 @@ class App():
                                              width=w_width-100,
                                              height=15,
                                              fg_color=help_bg_standard,
-                                             progress_color="#84A59D",
-                                             border_color="#D9D9D9",
-                                             border_width=1)
+                                             progress_color=taskbar_bg_standard)
         self.progress_bar.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         self.progress_bar.set(0)
-        self.progress=Label(self.home_frame, text="", font=("Josefin Sans", 45), background=main_bg_standard)
+        self.progress=Label(self.home_frame, text="", 
+                            font=("Josefin Sans semibold", 60), 
+                            background=main_bg_standard,
+                            fg=text_colour)
         self.progress.place(relx=0.5, rely=0.3, anchor=tk.CENTER)
         self.test_button=Button(self.home_frame, text="Click Me", command=clicker)
         self.test_button.place(relx=0.5, rely=0.55, anchor=tk.CENTER)
@@ -70,11 +72,10 @@ class App():
                                height=3,
                                bg=main_bg_standard,
                                bd=0,
-                               foreground="#464646",
+                               foreground=text_colour,
                                highlightthickness=0,
                                selectbackground=main_bg_standard,
-                               selectforeground="#84A59D"
-                               )
+                               selectforeground=taskbar_bg_standard)
         self.task_list.pack()
         self.tasks=["Task 1", "Task 2", "Task 3", "Task 4", "Task 5"]
         #Dummy list in listbox.
@@ -189,7 +190,7 @@ class App():
         self.help_button_1=Button(self.home_frame, 
                                   image=help_icon, 
                                   background=main_bg_standard, 
-                                  width=40, height=40, 
+                                  width=45, height=45, 
                                   highlightthickness=0, 
                                   bd=0, border=0, 
                                   activebackground=main_bg_standard,
@@ -199,7 +200,7 @@ class App():
         self.help_button_2=Button(self.stats_frame, 
                                   image=help_icon, 
                                   background=main_bg_standard, 
-                                  width=40, height=40, 
+                                  width=45, height=45, 
                                   highlightthickness=0, 
                                   bd=0, border=0, 
                                   activebackground=main_bg_standard,
@@ -209,7 +210,7 @@ class App():
         self.help_button_3=Button(self.settings_frame, 
                                   image=help_icon, 
                                   background=main_bg_standard, 
-                                  width=40, height=40, 
+                                  width=45, height=45, 
                                   highlightthickness=0, 
                                   bd=0, border=0, 
                                   activebackground=main_bg_standard,
