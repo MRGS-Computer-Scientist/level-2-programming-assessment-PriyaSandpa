@@ -62,13 +62,22 @@ class App():
         self.test_button=Button(self.home_frame, text="Click Me", command=clicker)
         self.test_button.place(relx=0.5, rely=0.55, anchor=tk.CENTER)
         #List
-        self.task_list = Listbox(self.home_frame,
-                                 font=app_font,
-                                 width=w_width-50,
-                                 bg=main_bg_standard,
-                                 bd=0)
-        self.task_list.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
-        self.tasks=["Test 1", "Test 2", "Test 3"]
+        self.list_frame=Frame(self.home_frame)
+        self.list_frame.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
+        self.task_list=Listbox(self.list_frame,
+                               font=("Josefin Sans", 20),
+                               width=15,
+                               height=3,
+                               bg=main_bg_standard,
+                               bd=0,
+                               foreground="#464646",
+                               highlightthickness=0,
+                               selectbackground=main_bg_standard,
+                               selectforeground="#84A59D"
+                               )
+        self.task_list.pack()
+        self.tasks=["Task 1", "Task 2", "Task 3", "Task 4", "Task 5"]
+        #Dummy list in listbox.
         for item in self.tasks:
                self.task_list.insert(END, item)
 #--Stats Screen------------------------------------------------------------------       
@@ -150,8 +159,24 @@ class App():
                                  font=app_font,
                                  background=help_bg_standard)
         self.addtask_label.pack()
-       #entry for adding tasks
-        self.addtask_button=Button(self.home_frame,
+        #Entry box for adding tasks:
+        self.task_entry = Entry(self.addtask_frame, 
+                                font="Verdana 12",
+                                width=25)
+        self.task_entry.place(relx=0.5, rely=0.3, anchor=tk.CENTER)
+       #Confirm Task & Cancel buttons:
+        self.button_frame=Frame(self.addtask_frame)
+        self.button_frame.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
+        self.confirm_button=Button(self.button_frame, text="Create Task", command=lambda:self.task_options("Create"))
+        self.confirm_button.grid(row=0, column=0, padx=5)
+        self.delete_button=Button(self.button_frame, text="Cancel", command=lambda:self.task_options("Delete"))
+        self.delete_button.grid(row=0, column=1, padx=5)
+        self.complete_button=Button(self.button_frame, text="Completed!", command=lambda:self.task_options("Complete"))
+        self.complete_button.grid(row=0, column=2, padx=5)
+        self.incomplete_button=Button(self.button_frame, text="Incomplete", command=lambda:self.task_options("Incomplete"))
+        self.incomplete_button.grid(row=0, column=3, padx=5)
+       #Go to the add-task screen:
+        self.plus_button=Button(self.home_frame,
                                    background=main_bg_standard, 
                                    image=add_icon,
                                    width=50, height=50, 
@@ -159,7 +184,7 @@ class App():
                                    bd=0, border=0, 
                                    activebackground=main_bg_standard,   
                                    command=lambda: self.go_to_frame("Add"))
-        self.addtask_button.place(x=295, y=w_height-115)
+        self.plus_button.place(x=295, y=w_height-115)
 #--Help Buttons-------------------------------------------------------------------
         self.help_button_1=Button(self.home_frame, 
                                   image=help_icon, 
@@ -244,6 +269,16 @@ class App():
                 self.addtask_frame.pack()
                 self.current_frame="Add"
                 self.taskbar_frame.place_forget()
+
+    def task_options(self, option):
+        if option=="Create":
+              pass
+        elif option=="Delete":
+              pass
+        elif option=="Complete":
+              pass
+        elif option=="Incomplete":
+              pass
 
 if __name__=="__main__":
     app=App()
