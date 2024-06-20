@@ -77,7 +77,7 @@ class App():
                                selectbackground=main_bg_standard,
                                selectforeground=taskbar_bg_standard)
         self.task_list.pack()
-        self.tasks=["Task 1", "Task 2", "Task 3", "Task 4", "Task 5"]
+        self.tasks=[]
         #Dummy list in listbox.
         for item in self.tasks:
                self.task_list.insert(END, item)
@@ -273,9 +273,10 @@ class App():
 
     def task_options(self, option):
         if option=="Create":
-              pass
+              self.task_list.insert(END, self.task_entry.get())
+              self.task_entry.delete(0,END)
         elif option=="Delete":
-              pass
+              self.task_entry.delete(0,END)
         elif option=="Complete":
               pass
         elif option=="Incomplete":
