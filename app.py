@@ -15,8 +15,8 @@ class App():
 #--Image Icons--------------------------------------------------------------------
         image_home=Image.open("images/Home.png")
         home_icon=ImageTk.PhotoImage(image_home.resize((30,30)))
-        image_stats=Image.open("images/Stats.png")
-        stats_icon=ImageTk.PhotoImage(image_stats.resize((25,25)))
+        image_list=Image.open("images/List.png")
+        list_icon=ImageTk.PhotoImage(image_list.resize((30,30)))
         image_settings=Image.open("images/Settings.png")
         settings_icon=ImageTk.PhotoImage(image_settings.resize((25,25)))
         image_help=Image.open("images/Help.png")
@@ -81,17 +81,17 @@ class App():
         #Dummy list in listbox.
         for item in self.tasks:
                self.task_list.insert(END, item)
-#--Stats Screen------------------------------------------------------------------       
-        self.stats_frame = Frame(background=main_bg_standard, 
+#--View List Screen------------------------------------------------------------------       
+        self.list_frame = Frame(background=main_bg_standard, 
                                  width=w_width, 
                                  height=675)
-        self.stats_frame.pack_forget()
-        self.stats_frame.pack_propagate(False)
-        self.stats_label=Label(self.stats_frame,
-                               text="Stats", 
+        self.list_frame.pack_forget()
+        self.list_frame.pack_propagate(False)
+        self.list_label=Label(self.list_frame,
+                               text="Tasks/Habits", 
                                font=app_font, 
                                background=main_bg_standard)
-        self.stats_label.pack()
+        self.list_label.pack()
 #--Settings Screen---------------------------------------------------------------       
         self.settings_frame = Frame(background=main_bg_standard, 
                                     width=w_width, 
@@ -130,15 +130,15 @@ class App():
                                 activebackground=taskbar_bg_standard)
         self.home_button.place(x=165, y=10)
 
-        self.stats_button=Button(self.taskbar_frame, 
-                                 image=stats_icon, 
+        self.list_button=Button(self.taskbar_frame, 
+                                 image=list_icon, 
                                  background=taskbar_bg_standard, 
                                  width=30, height=30, 
                                  highlightthickness=0, 
                                  bd=0, 
-                                 command=lambda: self.go_to_frame("Stats"), 
+                                 command=lambda: self.go_to_frame("List"), 
                                  activebackground=taskbar_bg_standard)
-        self.stats_button.place(x=55, y=10)
+        self.list_button.place(x=55, y=10)
 
         self.settings_button=Button(self.taskbar_frame, 
                                     image=settings_icon, 
@@ -197,7 +197,7 @@ class App():
                                   command=lambda: self.go_to_frame("Help"))
         self.help_button_1.place(x=310, y=15)
 
-        self.help_button_2=Button(self.stats_frame, 
+        self.help_button_2=Button(self.list_frame, 
                                   image=help_icon, 
                                   background=main_bg_standard, 
                                   width=45, height=45, 
@@ -242,8 +242,8 @@ class App():
 
         if self.current_frame == "Home":
                 self.home_frame.pack_forget()
-        elif self.current_frame == "Stats":
-                self.stats_frame.pack_forget()
+        elif self.current_frame == "List":
+                self.list_frame.pack_forget()
         elif self.current_frame == "Settings":
                 self.settings_frame.pack_forget()
         elif self.current_frame == "Help":
@@ -253,9 +253,9 @@ class App():
               self.addtask_frame.pack_forget()
               self.taskbar_frame.place(relx=0.5, rely=0.9635, anchor=tk.CENTER)
         
-        if next_frame == "Stats":
-                self.stats_frame.pack()
-                self.current_frame = "Stats"
+        if next_frame == "List":
+                self.list_frame.pack()
+                self.current_frame = "List"
         elif next_frame == "Settings":
                 self.settings_frame.pack()
                 self.current_frame = "Settings"
