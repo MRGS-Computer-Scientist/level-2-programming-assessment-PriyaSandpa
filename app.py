@@ -81,17 +81,20 @@ class App():
         #Dummy list in listbox.
         for item in self.tasks:
                self.task_list.insert(END, item)
-#--View List Screen------------------------------------------------------------------       
-        self.list_frame = Frame(background=main_bg_standard, 
-                                 width=w_width, 
-                                 height=675)
-        self.list_frame.pack_forget()
-        self.list_frame.pack_propagate(False)
-        self.list_label=Label(self.list_frame,
-                               text="Tasks/Habits", 
-                               font=app_font, 
-                               background=main_bg_standard)
-        self.list_label.pack()
+
+        for tasks in self.tasks:
+                Checkbutton(self.list_frame,text=str(tasks)).pack()
+#--View List (Dashboard) Screen------------------------------------------------------------------       
+        self.dashboard_frame = Frame(background=main_bg_standard, 
+                                width=w_width, 
+                                height=675)
+        self.dashboard_frame.pack_forget()
+        self.dashboard_frame.pack_propagate(False)
+        self.dashboard_label=Label(self.dashboard_frame,
+                              text="Tasks/Habits", 
+                              font=app_font, 
+                              background=main_bg_standard)
+        self.dashboard_label.pack()
 #--Settings Screen---------------------------------------------------------------       
         self.settings_frame = Frame(background=main_bg_standard, 
                                     width=w_width, 
@@ -178,13 +181,13 @@ class App():
         self.incomplete_button.grid(row=0, column=3, padx=5)
        #Go to the add-task screen:
         self.plus_button=Button(self.home_frame,
-                                   background=main_bg_standard, 
-                                   image=add_icon,
-                                   width=50, height=50, 
-                                   highlightthickness=0, 
-                                   bd=0, border=0, 
-                                   activebackground=main_bg_standard,   
-                                   command=lambda: self.go_to_frame("Add"))
+                                background=main_bg_standard, 
+                                image=add_icon,
+                                width=50, height=50, 
+                                highlightthickness=0, 
+                                bd=0, border=0, 
+                                activebackground=main_bg_standard,   
+                                command=lambda: self.go_to_frame("Add"))
         self.plus_button.place(x=295, y=w_height-115)
 #--Help Buttons-------------------------------------------------------------------
         self.help_button_1=Button(self.home_frame, 
@@ -218,22 +221,22 @@ class App():
         self.help_button_3.place(x=310, y=15)
 #--Exit Button-------------------------------------------------------------------
         self.exit_button_help=Button(self.help_frame,
-                                image=exit_icon, 
-                                background=help_bg_standard, 
-                                width=40, height=40, 
-                                highlightthickness=0, 
-                                bd=0, border=0, 
-                                activebackground=help_bg_standard,
-                                command=lambda: self.go_to_frame("Home"))
+                                     image=exit_icon, 
+                                     background=help_bg_standard, 
+                                     width=40, height=40, 
+                                     highlightthickness=0, 
+                                     bd=0, border=0, 
+                                     activebackground=help_bg_standard,
+                                     command=lambda: self.go_to_frame("Home"))
         self.exit_button_help.place(x=30, y=15)
         self.exit_button_add=Button(self.addtask_frame,
-                                image=exit_icon, 
-                                background=help_bg_standard, 
-                                width=40, height=40, 
-                                highlightthickness=0, 
-                                bd=0, border=0, 
-                                activebackground=help_bg_standard,
-                                command=lambda: self.go_to_frame("Home"))
+                                    image=exit_icon, 
+                                    background=help_bg_standard, 
+                                    width=40, height=40, 
+                                    highlightthickness=0, 
+                                    bd=0, border=0, 
+                                    activebackground=help_bg_standard,
+                                    command=lambda: self.go_to_frame("Home"))
         self.exit_button_add.place(x=30, y=15)
 #--Mainloop----------------------------------------------------------------------
         self.window.mainloop()
@@ -277,6 +280,7 @@ class App():
               self.task_entry.delete(0,END)
         elif option=="Delete":
               self.task_entry.delete(0,END)
+              self.go_to_frame("Home")
         elif option=="Complete":
               pass
         elif option=="Incomplete":
