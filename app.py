@@ -77,24 +77,35 @@ class App():
                                selectbackground=main_bg_standard,
                                selectforeground=taskbar_bg_standard)
         self.task_list.pack()
-        self.tasks=[]
-        #Dummy list in listbox.
-        for item in self.tasks:
-               self.task_list.insert(END, item)
-
-        for tasks in self.tasks:
-                Checkbutton(self.list_frame,text=str(tasks)).pack()
+        self.tasks=["Task 1"]
+                
 #--View List (Dashboard) Screen------------------------------------------------------------------       
         self.dashboard_frame = Frame(background=main_bg_standard, 
-                                width=w_width, 
-                                height=675)
+                                     width=w_width, 
+                                     height=675)
         self.dashboard_frame.pack_forget()
         self.dashboard_frame.pack_propagate(False)
         self.dashboard_label=Label(self.dashboard_frame,
-                              text="Tasks/Habits", 
-                              font=app_font, 
-                              background=main_bg_standard)
+                                   text="Tasks/Habits", 
+                                   font=app_font, 
+                                   background=main_bg_standard)
         self.dashboard_label.pack()
+        self.dblist_frame=Frame(self.dashboard_frame)
+        self.dblist_frame.pack()
+        self.dbtask_list=Listbox(self.dblist_frame,
+                                 font=("Josefin Sans", 20),
+                                 width=15,
+                                 bg=main_bg_standard,
+                                 bd=0,
+                                 foreground=text_colour,
+                                 highlightthickness=0,
+                                 selectbackground=main_bg_standard,
+                                 selectforeground=taskbar_bg_standard)
+        self.dbtask_list.pack()
+#--Insert task in lists----------------------------------------------------------
+        for item in self.tasks:
+                self.task_list.insert(END, item),
+                self.dbtask_list.insert(END, item)
 #--Settings Screen---------------------------------------------------------------       
         self.settings_frame = Frame(background=main_bg_standard, 
                                     width=w_width, 
@@ -133,15 +144,15 @@ class App():
                                 activebackground=taskbar_bg_standard)
         self.home_button.place(x=165, y=10)
 
-        self.list_button=Button(self.taskbar_frame, 
+        self.dashboard_button=Button(self.taskbar_frame, 
                                  image=list_icon, 
                                  background=taskbar_bg_standard, 
                                  width=30, height=30, 
                                  highlightthickness=0, 
                                  bd=0, 
-                                 command=lambda: self.go_to_frame("List"), 
+                                 command=lambda: self.go_to_frame("Dashboard"), 
                                  activebackground=taskbar_bg_standard)
-        self.list_button.place(x=55, y=10)
+        self.dashboard_button.place(x=55, y=10)
 
         self.settings_button=Button(self.taskbar_frame, 
                                     image=settings_icon, 
@@ -200,7 +211,7 @@ class App():
                                   command=lambda: self.go_to_frame("Help"))
         self.help_button_1.place(x=310, y=15)
 
-        self.help_button_2=Button(self.list_frame, 
+        self.help_button_2=Button(self.dashboard_frame, 
                                   image=help_icon, 
                                   background=main_bg_standard, 
                                   width=45, height=45, 
@@ -245,8 +256,8 @@ class App():
 
         if self.current_frame == "Home":
                 self.home_frame.pack_forget()
-        elif self.current_frame == "List":
-                self.list_frame.pack_forget()
+        elif self.current_frame == "Dashboard":
+                self.dashboard_frame.pack_forget()
         elif self.current_frame == "Settings":
                 self.settings_frame.pack_forget()
         elif self.current_frame == "Help":
@@ -256,9 +267,9 @@ class App():
               self.addtask_frame.pack_forget()
               self.taskbar_frame.place(relx=0.5, rely=0.9635, anchor=tk.CENTER)
         
-        if next_frame == "List":
-                self.list_frame.pack()
-                self.current_frame = "List"
+        if next_frame == "Dashboard":
+                self.dashboard_frame.pack()
+                self.current_frame = "Dashboard"
         elif next_frame == "Settings":
                 self.settings_frame.pack()
                 self.current_frame = "Settings"
@@ -277,6 +288,7 @@ class App():
     def task_options(self, option):
         if option=="Create":
               self.task_list.insert(END, self.task_entry.get())
+              self.dbtask_list.insert(END, self.task_entry.get())
               self.task_entry.delete(0,END)
         elif option=="Delete":
               self.task_entry.delete(0,END)
