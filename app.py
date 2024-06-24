@@ -91,7 +91,7 @@ class App():
                                    background=main_bg_standard)
         self.dashboard_label.pack()
         self.dblist_frame=Frame(self.dashboard_frame)
-        self.dblist_frame.pack()
+        self.dblist_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
         self.dbtask_list=Listbox(self.dblist_frame,
                                  font=("Josefin Sans", 20),
                                  width=15,
@@ -102,6 +102,13 @@ class App():
                                  selectbackground=main_bg_standard,
                                  selectforeground=taskbar_bg_standard)
         self.dbtask_list.pack()
+        self.dbbutton_frame=Frame(self.dashboard_frame,
+                                  background=main_bg_standard)
+        self.dbbutton_frame.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
+        self.complete_button=Button(self.dbbutton_frame, text="Completed!", command=lambda:self.task_options("Complete"))
+        self.complete_button.grid(row=0, column=0, padx=5)
+        self.incomplete_button=Button(self.dbbutton_frame, text="Incomplete", command=lambda:self.task_options("Incomplete"))
+        self.incomplete_button.grid(row=0, column=1, padx=5)
 #--Insert task in lists----------------------------------------------------------
         for item in self.tasks:
                 self.task_list.insert(END, item),
@@ -175,10 +182,17 @@ class App():
                                  background=help_bg_standard)
         self.addtask_label.pack()
         #Entry box for adding tasks:
+        self.subquestion_1 = Label(self.addtask_frame,
+                                   text="Enter the name of your task:",
+                                   font=("Josefin Sans", 15),
+                                   background=help_bg_standard)
+        self.subquestion_1.place(relx=0.1, rely=0.2, anchor=tk.W)
         self.task_entry = Entry(self.addtask_frame, 
                                 font="Verdana 12",
-                                width=25)
-        self.task_entry.place(relx=0.5, rely=0.3, anchor=tk.CENTER)
+                                width=25,
+                                bd=0,
+                                borderwidth=0)
+        self.task_entry.place(relx=0.5, rely=0.25, anchor=tk.CENTER)
        #Confirm Task & Cancel buttons:
         self.button_frame=Frame(self.addtask_frame)
         self.button_frame.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
@@ -186,10 +200,6 @@ class App():
         self.confirm_button.grid(row=0, column=0, padx=5)
         self.delete_button=Button(self.button_frame, text="Cancel", command=lambda:self.task_options("Delete"))
         self.delete_button.grid(row=0, column=1, padx=5)
-        self.complete_button=Button(self.button_frame, text="Completed!", command=lambda:self.task_options("Complete"))
-        self.complete_button.grid(row=0, column=2, padx=5)
-        self.incomplete_button=Button(self.button_frame, text="Incomplete", command=lambda:self.task_options("Incomplete"))
-        self.incomplete_button.grid(row=0, column=3, padx=5)
        #Go to the add-task screen:
         self.plus_button=Button(self.home_frame,
                                 background=main_bg_standard, 
