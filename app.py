@@ -304,9 +304,16 @@ class App():
               self.task_entry.delete(0,END)
               self.go_to_frame("Home")
         elif option=="Complete":
-              pass
+              #cross off item
+              self.dbtask_list.itemconfig(
+                    self.dbtask_list.curselection(),
+                    fg="#dedede")
         elif option=="Incomplete":
-              pass
+              #uncross item
+              self.dbtask_list.itemconfig(
+                    self.dbtask_list.curselection(),
+                    fg=text_colour)
+              self.dbtask_list.selection_clear(0,END)
 
 if __name__=="__main__":
     app=App()
