@@ -121,7 +121,7 @@ class App():
                                       height=1,
                                       bg=main_bg_standard,
                                       bd=0,
-                                      foreground=text_colour,
+                                      foreground="#dedede",
                                       highlightthickness=0,
                                       selectbackground=main_bg_standard,
                                       selectforeground=taskbar_bg_standard)
@@ -331,17 +331,14 @@ class App():
               self.go_to_frame("Home")
         #cross off item
         elif option=="Complete":
-              self.dbtask_list.itemconfig(
-                    self.dbtask_list.curselection(),
-                    fg="#dedede")
-              self.dbcompleted_list.insert(END, self.dbtask_list.curselection())
+              self.dbcompleted_list.insert(END, self.dbtask_list.get(ANCHOR))
               self.dbtask_list.selection_clear(0,END)
+              self.dbtask_list.delete(ANCHOR)
         #uncross item
         elif option=="Incomplete":
-              self.dbtask_list.itemconfig(
-                    self.dbtask_list.curselection(),
-                    fg=text_colour)
-              self.dbtask_list.selection_clear(0,END)
+              self.dbtask_list.insert(END, self.dbcompleted_list.get(ANCHOR))
+              self.dbcompleted_list.selection_clear(0,END)
+              self.dbcompleted_list.delete(ANCHOR)
         #delete completed and unneeded tasks
         elif option=="Delete Completed":
               pass
