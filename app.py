@@ -90,18 +90,42 @@ class App():
                                    font=app_font, 
                                    background=main_bg_standard)
         self.dashboard_label.pack()
-        self.dblist_frame=Frame(self.dashboard_frame)
-        self.dblist_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        self.dblist_frame=Frame(self.dashboard_frame,
+                                height=675,
+                                background=main_bg_standard)
+        self.dblist_frame.place(relx=0.5, rely=0.25, anchor=tk.CENTER)
+        self.todo_label=Label(self.dblist_frame,
+                              text="To-do:", 
+                              font=("Josefin Sans", 20, UNDERLINE), 
+                              background=main_bg_standard)
+        self.todo_label.grid(row=0, sticky=W)
         self.dbtask_list=Listbox(self.dblist_frame,
                                  font=("Josefin Sans", 20),
                                  width=15,
+                                 height=1,
                                  bg=main_bg_standard,
                                  bd=0,
                                  foreground=text_colour,
                                  highlightthickness=0,
                                  selectbackground=main_bg_standard,
                                  selectforeground=taskbar_bg_standard)
-        self.dbtask_list.pack()
+        self.dbtask_list.grid(row=1, padx=20)
+        self.completed_label=Label(self.dblist_frame,
+                              text="Done:", 
+                              font=("Josefin Sans", 20, UNDERLINE), 
+                              background=main_bg_standard)
+        self.completed_label.grid(row=2, sticky=W)
+        self.dbcompleted_list=Listbox(self.dblist_frame,
+                                      font=("Josefin Sans", 20),
+                                      width=15,
+                                      height=1,
+                                      bg=main_bg_standard,
+                                      bd=0,
+                                      foreground=text_colour,
+                                      highlightthickness=0,
+                                      selectbackground=main_bg_standard,
+                                      selectforeground=taskbar_bg_standard)
+        self.dbcompleted_list.grid(row=3, padx=20)
         self.dbbutton_frame=Frame(self.dashboard_frame,
                                   background=main_bg_standard)
         self.dbbutton_frame.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
@@ -109,6 +133,8 @@ class App():
         self.complete_button.grid(row=0, column=0, padx=5)
         self.incomplete_button=Button(self.dbbutton_frame, text="Incomplete", command=lambda:self.task_options("Incomplete"))
         self.incomplete_button.grid(row=0, column=1, padx=5)
+        self.delete_completed=Button(self.dbbutton_frame, text="Delete", command=lambda:self.task_options("Delete Completed"))
+        self.delete_completed.grid(row=0, column=2, padx=5)
 #--Insert task in lists----------------------------------------------------------
         for item in self.tasks:
                 self.task_list.insert(END, item),
@@ -303,17 +329,27 @@ class App():
         elif option=="Delete":
               self.task_entry.delete(0,END)
               self.go_to_frame("Home")
+        #cross off item
         elif option=="Complete":
-              #cross off item
               self.dbtask_list.itemconfig(
                     self.dbtask_list.curselection(),
                     fg="#dedede")
+              self.dbcompleted_list.insert(END, self.dbtask_list.curselection())
+              self.dbtask_list.selection_clear(0,END)
+        #uncross item
         elif option=="Incomplete":
-              #uncross item
               self.dbtask_list.itemconfig(
                     self.dbtask_list.curselection(),
                     fg=text_colour)
               self.dbtask_list.selection_clear(0,END)
+        #delete completed and unneeded tasks
+        elif option=="Delete Completed":
+              pass
+              #count = 0
+              #while count < self.dbtask_list.size():
+              #      if self.dbtask_list.itemcget(count, "fg") == "#dedede":
+              #            self.dbtask_list.delete(self.dbtask_list.index(count))      
+              #      count += 1
 
 if __name__=="__main__":
     app=App()
