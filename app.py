@@ -224,7 +224,7 @@ class App():
         self.button_frame.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
         self.confirm_button=Button(self.button_frame, text="Create Task", command=lambda:self.task_options("Create"))
         self.confirm_button.grid(row=0, column=0, padx=5)
-        self.delete_button=Button(self.button_frame, text="Cancel", command=lambda:self.task_options("Delete"))
+        self.delete_button=Button(self.button_frame, text="Cancel", command=lambda:self.task_options("Clear"))
         self.delete_button.grid(row=0, column=1, padx=5)
        #Go to the add-task screen:
         self.plus_button=Button(self.home_frame,
@@ -322,23 +322,29 @@ class App():
                 self.taskbar_frame.place_forget()
 
     def task_options(self, option):
+        #Add task to list.
         if option=="Create":
               self.task_list.insert(END, self.task_entry.get())
               self.dbtask_list.insert(END, self.task_entry.get())
               self.task_entry.delete(0,END)
-        elif option=="Delete":
+        
+        #Clear input box
+        elif option=="Clear":
               self.task_entry.delete(0,END)
               self.go_to_frame("Home")
+        
         #cross off item
         elif option=="Complete":
               self.dbcompleted_list.insert(END, self.dbtask_list.get(ANCHOR))
               self.dbtask_list.selection_clear(0,END)
               self.dbtask_list.delete(ANCHOR)
+       
         #uncross item
         elif option=="Incomplete":
               self.dbtask_list.insert(END, self.dbcompleted_list.get(ANCHOR))
               self.dbcompleted_list.selection_clear(0,END)
               self.dbcompleted_list.delete(ANCHOR)
+        
         #delete completed and unneeded tasks
         elif option=="Delete Completed":
               pass
