@@ -90,42 +90,38 @@ class App():
                                    font=app_font, 
                                    background=main_bg_standard)
         self.dashboard_label.pack()
-        self.dblist_frame=Frame(self.dashboard_frame,
-                                height=675,
-                                background=main_bg_standard)
-        self.dblist_frame.place(relx=0.5, rely=0.25, anchor=tk.CENTER)
-        self.todo_label=Label(self.dblist_frame,
+        self.todo_label=Label(self.dashboard_frame,
                               text="To-do:", 
                               font=("Josefin Sans", 20, UNDERLINE), 
                               background=main_bg_standard)
-        self.todo_label.grid(row=0, sticky=W)
-        self.dbtask_list=Listbox(self.dblist_frame,
+        self.todo_label.place(relx=0.1, rely=0.1)
+        self.dbtask_list=Listbox(self.dashboard_frame,
                                  font=("Josefin Sans", 20),
                                  width=15,
-                                 height=1,
+                                 height=4,
                                  bg=main_bg_standard,
                                  bd=0,
                                  foreground=text_colour,
                                  highlightthickness=0,
                                  selectbackground=main_bg_standard,
                                  selectforeground=taskbar_bg_standard)
-        self.dbtask_list.grid(row=1, padx=20)
-        self.completed_label=Label(self.dblist_frame,
+        self.dbtask_list.place(relx=0.2, rely=0.2)
+        self.completed_label=Label(self.dashboard_frame,
                               text="Done:", 
                               font=("Josefin Sans", 20, UNDERLINE), 
                               background=main_bg_standard)
-        self.completed_label.grid(row=2, sticky=W)
-        self.dbcompleted_list=Listbox(self.dblist_frame,
+        self.completed_label.place(relx=0.1, rely=0.45)
+        self.dbcompleted_list=Listbox(self.dashboard_frame,
                                       font=("Josefin Sans", 20),
                                       width=15,
-                                      height=1,
+                                      height=4,
                                       bg=main_bg_standard,
                                       bd=0,
-                                      foreground="#dedede",
+                                      foreground="#878787",
                                       highlightthickness=0,
                                       selectbackground=main_bg_standard,
                                       selectforeground=taskbar_bg_standard)
-        self.dbcompleted_list.grid(row=3, padx=20)
+        self.dbcompleted_list.place(relx=0.2, rely=0.55)
         self.dbbutton_frame=Frame(self.dashboard_frame,
                                   background=main_bg_standard)
         self.dbbutton_frame.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
