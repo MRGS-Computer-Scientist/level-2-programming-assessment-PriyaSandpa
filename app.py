@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 from tkinter import *
 import tkinter as tk
 from tkinter.font import Font
