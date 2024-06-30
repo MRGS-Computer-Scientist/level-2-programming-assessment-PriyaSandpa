@@ -23,8 +23,7 @@ class App:
         image_list = Image.open('images/List.png')
         list_icon = ImageTk.PhotoImage(image_list.resize((30, 30)))
         image_settings = Image.open('images/Settings.png')
-        settings_icon = ImageTk.PhotoImage(image_settings.resize((25,
-                25)))
+        settings_icon = ImageTk.PhotoImage(image_settings.resize((25, 25)))
         image_help = Image.open('images/Help.png')
         help_icon = ImageTk.PhotoImage(image_help.resize((45, 45)))
         image_add = Image.open('images/Add.png')
@@ -54,8 +53,7 @@ class App:
 
         def clicker():
             self.progress_bar.step()
-            self.progress.configure(text=(int(self.progress_bar.get()
-                                    * 100), '%'))
+            self.progress.configure(text=(int(self.progress_bar.get()* 100), '%'))
 
         self.progress_bar = ctk.CTkProgressBar(
             self.home_frame,
@@ -93,7 +91,7 @@ class App:
             selectforeground=taskbar_bg_standard,
             )
         self.task_list.pack()
-        self.tasks = []
+        self.tasks = ["Task 1"]
 
 # --View List (Dashboard) Screen------------------------------------------------------------------
 
@@ -122,8 +120,8 @@ class App:
             selectforeground=taskbar_bg_standard,
             )
         self.dbtask_list.place(relx=0.2, rely=0.2)
-        self.completed_label = Label(self.dashboard_frame, text='Done:'
-                , font=('Josefin Sans', 20, UNDERLINE),
+        self.completed_label = Label(self.dashboard_frame, text='Done:',
+                font=('Josefin Sans', 20, UNDERLINE),
                 background=main_bg_standard)
         self.completed_label.place(relx=0.1, rely=0.45)
         self.dbcompleted_list = Listbox(
@@ -143,15 +141,15 @@ class App:
                                     background=main_bg_standard)
         self.dbbutton_frame.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
         self.complete_button = Button(self.dbbutton_frame,
-                text='Completed!', command=lambda : \
+                text='Completed!', command=lambda :
                 self.task_options('Complete'))
         self.complete_button.grid(row=0, column=0, padx=5)
         self.incomplete_button = Button(self.dbbutton_frame,
-                text='Incomplete', command=lambda : \
+                text='Incomplete', command=lambda :
                 self.task_options('Incomplete'))
         self.incomplete_button.grid(row=0, column=1, padx=5)
         self.delete_completed = Button(self.dbbutton_frame,
-                text='Delete', command=lambda : \
+                text='Delete', command=lambda :
                 self.task_options('Delete Completed'))
         self.delete_completed.grid(row=0, column=2, padx=5)
 
@@ -159,7 +157,7 @@ class App:
 
         for item in self.tasks:
             self.dbtask_list.insert(END, item)
-        self.task_list.insert(END, self.dbtask_list.get(ANCHOR))
+            self.task_list.insert(END, item)
 
 # --Settings Screen---------------------------------------------------------------
 
@@ -230,6 +228,7 @@ class App:
         self.settings_button.place(x=275, y=10)
 
 # --Add Task Screen---------------------------------------------------------------
+        # Frame for "Add Task" screen
 
         self.addtask_frame = Frame(background=help_bg_standard,
                                    width=w_width, height=w_height)
@@ -256,11 +255,11 @@ class App:
         self.button_frame = Frame(self.addtask_frame)
         self.button_frame.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
         self.confirm_button = Button(self.button_frame,
-                text='Create Task', command=lambda : \
+                text='Create Task', command=lambda :
                 self.task_options('Create'))
         self.confirm_button.grid(row=0, column=0, padx=5)
         self.delete_button = Button(self.button_frame, text='Cancel',
-                                    command=lambda : \
+                                    command=lambda :
                                     self.task_options('Clear'))
         self.delete_button.grid(row=0, column=1, padx=5)
 
@@ -359,7 +358,11 @@ class App:
 
 # --Go to frame function----------------------------------------------------------
 
+#Method that switches the screen depending on what screen the user wants to go to. 
+
     def go_to_frame(self, next_frame):
+
+#This part of the method determines which screen should be hidden when user switches screens.
 
         if self.current_frame == 'Home':
             self.home_frame.pack_forget()
@@ -375,6 +378,8 @@ class App:
             self.addtask_frame.pack_forget()
             self.taskbar_frame.place(relx=0.5, rely=0.9635,
                     anchor=tk.CENTER)
+
+#This part of the method determines which screen should be displayed when the user switches screens.
 
         if next_frame == 'Dashboard':
             self.dashboard_frame.pack()
@@ -399,15 +404,16 @@ class App:
         # Add task to list.
 
         if option == 'Create':
+            self.task_list.insert(END, self.task_entry.get())
             self.dbtask_list.insert(END, self.task_entry.get())
-            self.task_entry.delete(0, END)
-            self.task_list.insert(END, self.dbtask_list.get(ANCHOR))
+            self.task_entry.delete(0,END)
         elif option == 'Clear':
 
         # Clear input box
 
             self.task_entry.delete(0, END)
             self.go_to_frame('Home')
+       
         elif option == 'Complete':
 
         # cross off item
@@ -420,8 +426,7 @@ class App:
 
         # uncross item
 
-            self.dbtask_list.insert(END,
-                                    self.dbcompleted_list.get(ANCHOR))
+            self.dbtask_list.insert(END, self.dbcompleted_list.get(ANCHOR))
             self.dbcompleted_list.selection_clear(0, END)
             self.dbcompleted_list.delete(ANCHOR)
         elif option == 'Delete Completed':
@@ -436,6 +441,7 @@ class App:
               #      if self.dbtask_list.itemcget(count, "fg") == "#dedede":
               #            self.dbtask_list.delete(self.dbtask_list.index(count))
               #      count += 1
+
 
 if __name__ == '__main__':
     app = App()
