@@ -1,5 +1,6 @@
 from tkinter import *
 import tkinter as tk
+from tkinter import messagebox
 from tkinter.font import Font
 from app_settings import *
 import customtkinter as ctk
@@ -409,11 +410,21 @@ class App:
         # Add task to list.
 
         if option == 'Create':
-            self.tasks.append(self.task_entry.get())
-            print (self.tasks)
-            self.task_list.insert(END, self.tasks[-1])
-            self.dbtask_list.insert(END, self.tasks[-1])
-            self.task_entry.delete(0,END)
+            #Set minimum and maximum range for user input.
+            if len(self.task_entry.get())<0:
+                messagebox.showinfo("Error", "This field cannot be empty.")
+            
+            elif len(self.task_entry.get())>25:
+                messagebox.showinfo("Error", "This field has a maximum limit of 25 characters.")
+                self.task_entry.delete(0,END)
+                
+            else:
+                self.tasks.append(self.task_entry.get())
+                print (self.tasks)
+                self.task_list.insert(END, self.tasks[-1])
+                self.dbtask_list.insert(END, self.tasks[-1])
+                self.task_entry.delete(0,END)
+
 
         elif option == 'Clear':
 
@@ -421,7 +432,9 @@ class App:
 
             self.task_entry.delete(0, END)
             self.go_to_frame('Home')
-       
+
+
+#This method is decides which list the tasks should be placed in when created, completed, and undone. 
     def switchList(self, current, next):
         indexList=current.curselection()
         if indexList:
@@ -435,34 +448,6 @@ class App:
         if next==self.dbtask_list:
             self.task_list.insert(END, val)
 
-        # cross off item
-
-
-
-
-
-            #self.dbcompleted_list.insert(END,
-            #        self.dbtask_list.get(ANCHOR))
-            #self.dbtask_list.selection_clear(0, END)
-            #self.dbtask_list.delete(ANCHOR)
-        #elif option == 'Incomplete':
-        #    pass
-        # uncross item
-
-            #self.dbtask_list.insert(END, self.dbcompleted_list.get(ANCHOR))
-            #self.dbcompleted_list.selection_clear(0, END)
-            #self.dbcompleted_list.delete(ANCHOR)
-        #elif option == 'Delete Completed':
-
-        # delete completed and unneeded tasks
-
-
-
-              # count = 0
-              # while count < self.dbtask_list.size():
-              #      if self.dbtask_list.itemcget(count, "fg") == "#dedede":
-              #            self.dbtask_list.delete(self.dbtask_list.index(count))
-              #      count += 1
 
 
 if __name__ == '__main__':
