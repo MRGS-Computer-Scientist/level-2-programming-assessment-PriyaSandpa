@@ -91,7 +91,6 @@ class App:
             selectforeground=taskbar_bg_standard,
             )
         self.task_list.pack()
-        self.tasks = ["Task 1"]
 
 # --View List (Dashboard) Screen------------------------------------------------------------------
 
@@ -142,22 +141,28 @@ class App:
         self.dbbutton_frame.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
         self.complete_button = Button(self.dbbutton_frame,
                 text='Completed!', command=lambda :
-                self.task_options('Complete'))
+                self.switchList(self.dbtask_list, self.dbcompleted_list))
         self.complete_button.grid(row=0, column=0, padx=5)
         self.incomplete_button = Button(self.dbbutton_frame,
                 text='Incomplete', command=lambda :
-                self.task_options('Incomplete'))
+                self.switchList(self.dbcompleted_list, self.dbtask_list))
         self.incomplete_button.grid(row=0, column=1, padx=5)
         self.delete_completed = Button(self.dbbutton_frame,
                 text='Delete', command=lambda :
                 self.task_options('Delete Completed'))
         self.delete_completed.grid(row=0, column=2, padx=5)
 
-# --Insert task in lists----------------------------------------------------------
+#--- Lists -----------------------------------------------------------------------
+
+        self.tasks=["Task 1"]
+        self.completed=["Habit 1"]
 
         for item in self.tasks:
-            self.dbtask_list.insert(END, item)
             self.task_list.insert(END, item)
+            self.dbtask_list.insert(END, item)
+
+        for item in self.completed:
+                self.dbcompleted_list.insert(END, item)
 
 # --Settings Screen---------------------------------------------------------------
 
@@ -404,9 +409,12 @@ class App:
         # Add task to list.
 
         if option == 'Create':
-            self.task_list.insert(END, self.task_entry.get())
-            self.dbtask_list.insert(END, self.task_entry.get())
+            self.tasks.append(self.task_entry.get())
+            print (self.tasks)
+            self.task_list.insert(END, self.tasks[-1])
+            self.dbtask_list.insert(END, self.tasks[-1])
             self.task_entry.delete(0,END)
+
         elif option == 'Clear':
 
         # Clear input box
@@ -414,26 +422,40 @@ class App:
             self.task_entry.delete(0, END)
             self.go_to_frame('Home')
        
-        elif option == 'Complete':
+    def switchList(self, current, next):
+        indexList=current.curselection()
+        if indexList:
+            index=indexList[0]
+            val=current.get(index)
+            current.delete(index)
+            next.insert(END, val)
+            #pass
+        if current==self.dbtask_list:
+            self.task_list.delete(index)
+        if next==self.dbtask_list:
+            self.task_list.insert(END, val)
 
         # cross off item
 
-            self.dbcompleted_list.insert(END,
-                    self.dbtask_list.get(ANCHOR))
-            self.dbtask_list.selection_clear(0, END)
-            self.dbtask_list.delete(ANCHOR)
-        elif option == 'Incomplete':
 
+
+
+
+            #self.dbcompleted_list.insert(END,
+            #        self.dbtask_list.get(ANCHOR))
+            #self.dbtask_list.selection_clear(0, END)
+            #self.dbtask_list.delete(ANCHOR)
+        #elif option == 'Incomplete':
+        #    pass
         # uncross item
 
-            self.dbtask_list.insert(END, self.dbcompleted_list.get(ANCHOR))
-            self.dbcompleted_list.selection_clear(0, END)
-            self.dbcompleted_list.delete(ANCHOR)
-        elif option == 'Delete Completed':
+            #self.dbtask_list.insert(END, self.dbcompleted_list.get(ANCHOR))
+            #self.dbcompleted_list.selection_clear(0, END)
+            #self.dbcompleted_list.delete(ANCHOR)
+        #elif option == 'Delete Completed':
 
         # delete completed and unneeded tasks
 
-            pass
 
 
               # count = 0
