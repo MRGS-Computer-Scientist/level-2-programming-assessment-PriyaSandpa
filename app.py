@@ -52,10 +52,6 @@ class App:
 
         # ProgressBar
 
-        def clicker():
-            self.progress_bar.step()
-            self.progress.configure(text=(int(self.progress_bar.get()* 100), '%'))
-
         self.progress_bar = ctk.CTkProgressBar(
             self.home_frame,
             determinate_speed=5.01,
@@ -71,9 +67,6 @@ class App:
                               background=main_bg_standard,
                               fg=text_colour)
         self.progress.place(relx=0.5, rely=0.3, anchor=tk.CENTER)
-        self.test_button = Button(self.home_frame, text='Click Me',
-                                  command=clicker)
-        self.test_button.place(relx=0.5, rely=0.55, anchor=tk.CENTER)
 
         # List
 
@@ -445,6 +438,8 @@ class App:
             #pass
         if current==self.dbtask_list:
             self.task_list.delete(index)
+            self.progress_bar.step()
+            self.progress.configure(text=(int(self.progress_bar.get()* 100), '%'))
         if next==self.dbtask_list:
             self.task_list.insert(END, val)
 
