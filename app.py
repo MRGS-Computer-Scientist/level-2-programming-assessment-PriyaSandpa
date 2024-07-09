@@ -442,6 +442,8 @@ class App:
             self.progress.configure(text=(int(self.progress_bar.get()* 100), '%'))
         if next==self.dbtask_list:
             self.task_list.insert(END, val)
+            self.progress_bar.set(int(self.progress_bar.get())-5.01)
+            self.progress.configure(text=(int(self.progress_bar.get()* 100), '%'))
 
 
 
