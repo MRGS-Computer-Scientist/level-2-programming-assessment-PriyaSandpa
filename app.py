@@ -143,7 +143,7 @@ class App:
         self.incomplete_button.grid(row=0, column=1, padx=5)
         self.delete_completed = Button(self.dbbutton_frame,
                 text='Delete', command=lambda :
-                self.task_options('Delete Completed'))
+                self.editList('Delete Completed'))
         self.delete_completed.grid(row=0, column=2, padx=5)
 
 #--- Lists -----------------------------------------------------------------------
@@ -255,11 +255,11 @@ class App:
         self.button_frame.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
         self.confirm_button = Button(self.button_frame,
                 text='Create Task', command=lambda :
-                self.task_options('Create'))
+                self.editList('Create'))
         self.confirm_button.grid(row=0, column=0, padx=5)
         self.delete_button = Button(self.button_frame, text='Cancel',
                                     command=lambda :
-                                    self.task_options('Clear'))
+                                    self.editList('Clear'))
         self.delete_button.grid(row=0, column=1, padx=5)
 
        # Go to the add-task screen:
@@ -398,7 +398,7 @@ class App:
             self.current_frame = 'Add'
             self.taskbar_frame.place_forget()
 
-    def task_options(self, option):
+    def editList(self, option):
 
         # Add task to list.
 
