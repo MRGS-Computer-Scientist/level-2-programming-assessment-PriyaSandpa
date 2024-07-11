@@ -142,11 +142,6 @@ class App:
                 text='Incomplete', command=lambda :
                 self.switchList(self.dbcompleted_list, self.dbtask_list))
         self.incomplete_button.grid(row=0, column=1, padx=5)
-        self.delete_completed = Button(self.dbbutton_frame,
-                text='Delete', command=lambda :
-                self.editList('Delete Completed'))
-        self.delete_completed.grid(row=0, column=2, padx=5)
-
 #--- Lists -----------------------------------------------------------------------
 
         self.tasks=["Task 1"]
@@ -258,10 +253,10 @@ class App:
                 text='Create Task', command=lambda :
                 self.editList('Create'))
         self.confirm_button.grid(row=0, column=0, padx=5)
-        self.delete_button = Button(self.button_frame, text='Cancel',
+        self.clear_button = Button(self.button_frame, text='Cancel',
                                     command=lambda :
                                     self.editList('Clear'))
-        self.delete_button.grid(row=0, column=1, padx=5)
+        self.clear_button.grid(row=0, column=1, padx=5)
 
        # Go to the add-task screen:
 
@@ -453,9 +448,10 @@ class App:
                 )
 
                 if self.file_name:
-                    #delete currently open list
+                    #delete currently open list before displaying saved list.
                     self.task_list.delete(0,END)
                     self.dbtask_list.delete(0,END)
+                    #Delete completed tasks before opening saved list.
                     self.dbcompleted_list.delete(0,END)
 
                     #Open saved list
