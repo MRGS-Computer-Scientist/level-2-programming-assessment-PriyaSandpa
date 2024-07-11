@@ -1,10 +1,12 @@
 from tkinter import *
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import filedialog
 from tkinter.font import Font
 from app_settings import *
 import customtkinter as ctk
 from PIL import Image, ImageTk
+import pickle
 
 
 class App:
@@ -22,8 +24,8 @@ class App:
         home_icon = ImageTk.PhotoImage(image_home.resize((30, 30)))
         image_list = Image.open('images/List.png')
         list_icon = ImageTk.PhotoImage(image_list.resize((30, 30)))
-        image_settings = Image.open('images/Settings.png')
-        settings_icon = ImageTk.PhotoImage(image_settings.resize((25, 25)))
+        image_save = Image.open('images/Save.png')
+        save_icon = ImageTk.PhotoImage(image_save.resize((25, 25)))
         image_help = Image.open('images/Help.png')
         help_icon = ImageTk.PhotoImage(image_help.resize((45, 45)))
         image_add = Image.open('images/Add.png')
@@ -157,16 +159,16 @@ class App:
         for item in self.completed:
                 self.dbcompleted_list.insert(END, item)
 
-# --Settings Screen---------------------------------------------------------------
+# --Save List Screen---------------------------------------------------------------
 
-        self.settings_frame = Frame(background=main_bg_standard,
+        self.save_frame = Frame(background=main_bg_standard,
                                     width=w_width, height=675)
-        self.settings_frame.pack_forget()
-        self.settings_frame.pack_propagate(False)
-        self.settings_label = Label(self.settings_frame, text='Settings'
+        self.save_frame.pack_forget()
+        self.save_frame.pack_propagate(False)
+        self.save_label = Label(self.save_frame, text='Save'
                                     , font=app_font,
                                     background=main_bg_standard)
-        self.settings_label.pack()
+        self.save_label.pack()
 
 # --Help Screen-------------------------------------------------------------------
 
@@ -212,18 +214,18 @@ class App:
             )
         self.dashboard_button.place(x=55, y=10)
 
-        self.settings_button = Button(
+        self.save_button = Button(
             self.taskbar_frame,
-            image=settings_icon,
+            image=save_icon,
             background=taskbar_bg_standard,
             width=30,
             height=30,
             highlightthickness=0,
             bd=0,
-            command=lambda : self.go_to_frame('Settings'),
+            command=lambda : self.editList('Save'),
             activebackground=taskbar_bg_standard,
             )
-        self.settings_button.place(x=275, y=10)
+        self.save_button.place(x=275, y=10)
 
 # --Add Task Screen---------------------------------------------------------------
         # Frame for "Add Task" screen
@@ -307,20 +309,6 @@ class App:
             )
         self.help_button_2.place(x=310, y=15)
 
-        self.help_button_3 = Button(
-            self.settings_frame,
-            image=help_icon,
-            background=main_bg_standard,
-            width=45,
-            height=45,
-            highlightthickness=0,
-            bd=0,
-            border=0,
-            activebackground=main_bg_standard,
-            command=lambda : self.go_to_frame('Help'),
-            )
-        self.help_button_3.place(x=310, y=15)
-
 # --Exit Button-------------------------------------------------------------------
 
         self.exit_button_help = Button(
@@ -366,8 +354,6 @@ class App:
             self.home_frame.pack_forget()
         elif self.current_frame == 'Dashboard':
             self.dashboard_frame.pack_forget()
-        elif self.current_frame == 'Settings':
-            self.settings_frame.pack_forget()
         elif self.current_frame == 'Help':
             self.help_frame.pack_forget()
             self.taskbar_frame.place(relx=0.5, rely=0.9635,
@@ -382,9 +368,6 @@ class App:
         if next_frame == 'Dashboard':
             self.dashboard_frame.pack()
             self.current_frame = 'Dashboard'
-        elif next_frame == 'Settings':
-            self.settings_frame.pack()
-            self.current_frame = 'Settings'
         elif next_frame == 'Home':
             self.home_frame.pack()
             self.current_frame = 'Home'
@@ -404,10 +387,10 @@ class App:
         if option == 'Create':
             #Set minimum and maximum range for user input.
             if len(self.task_entry.get())<0:
-                messagebox.showinfo("Error", "This field cannot be empty.")
+                messagebox.showerror("Error", "This field cannot be empty.")
             
             elif len(self.task_entry.get())>25:
-                messagebox.showinfo("Error", "This field has a maximum limit of 25 characters.")
+                messagebox.showerror("Error", "This field has a maximum limit of 25 characters.")
                 self.task_entry.delete(0,END)
                 
             else:
@@ -425,6 +408,80 @@ class App:
             self.task_entry.delete(0, END)
             self.go_to_frame('Home')
 
+        elif option == 'Save':
+            self.saveList_frame=Frame(width=250,
+                                 height=150)
+            self.saveList_frame.place(relx=0.5, rely=0.5,
+                                      anchor=tk.CENTER)
+            self.saveList_label=Label(self.saveList_frame, 
+                                      text="Would you like to save your current list\nor open an existing one?")
+            self.saveList_label.place(relx=0.5, rely=0.2,
+                                      anchor=tk.CENTER)
+            def saveList():
+                self.file_name = filedialog.asksaveasfilename(
+                    title="Save File",
+                    filetypes=(("Dat Files", "*.dat"), 
+                               ("All Files","*.*"))
+                )
+                if self.file_name:
+                    if self.file_name.endswith(".dat"):
+                        pass
+                    else:
+                        self.file_name=f'{self.file_name}.dat'
+                
+                # grab all the stuff from the list
+                stuff=self.dbtask_list.get(0, END)
+
+                # open file
+                output_file=open(self.file_name, 'wb')
+
+                #actually add stuff to the file
+                pickle.dump(stuff, output_file)
+
+                self.saveList_frame.destroy()
+
+            self.saveList_button=Button(self.saveList_frame,
+                                        text="Save List", 
+                                        command=saveList)
+            self.saveList_button.place(relx=0.2, rely=0.8, anchor=tk.CENTER)
+
+            def openList():
+                self.file_name=filedialog.askopenfilename(
+                    title="Open File",
+                    filetypes=(("Dat Files", "*.dat"), 
+                               ("All Files","*.*"))
+                )
+
+                if self.file_name:
+                    #delete currently open list
+                    self.task_list.delete(0,END)
+                    self.dbtask_list.delete(0,END)
+
+                    #Open saved list
+                    self.input_file=open(self.file_name, 'rb')
+
+                    stuff = pickle.load(self.input_file)
+
+                    self.saveList_frame.destroy()
+
+                    for item in stuff:
+                        self.task_list.insert(END, item)
+                        self.dbtask_list.insert(END, item)
+                    
+
+            self.openList_button=Button(self.saveList_frame,
+                                        text="Open List", 
+                                        command=openList)
+            self.openList_button.place(relx=0.50, rely=0.8, anchor=tk.CENTER)
+            
+            def cancel():
+                self.saveList_frame.destroy()
+            
+            self.cancel_button=Button(self.saveList_frame,
+                                      text="Cancel",
+                                      command=cancel)
+            self.cancel_button.place(relx=0.8, rely=0.8, anchor=tk.CENTER)
+            
 
 #This method is decides which list the tasks should be placed in when created, completed, and undone. 
     def switchList(self, current, next):
