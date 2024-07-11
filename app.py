@@ -456,6 +456,7 @@ class App:
                     #delete currently open list
                     self.task_list.delete(0,END)
                     self.dbtask_list.delete(0,END)
+                    self.dbcompleted_list.delete(0,END)
 
                     #Open saved list
                     self.input_file=open(self.file_name, 'rb')
