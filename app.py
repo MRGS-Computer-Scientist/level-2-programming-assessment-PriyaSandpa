@@ -381,9 +381,9 @@ class App:
 
         if option == 'Create':
             #Set minimum and maximum range for user input.
-            if len(self.task_entry.get())<0:
+            if len(self.task_entry.get())==0:
                 messagebox.showerror("Error", "This field cannot be empty.")
-            
+
             elif len(self.task_entry.get())>25:
                 messagebox.showerror("Error", "This field has a maximum limit of 25 characters.")
                 self.task_entry.delete(0,END)
