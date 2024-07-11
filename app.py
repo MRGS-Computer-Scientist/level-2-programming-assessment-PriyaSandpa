@@ -4,7 +4,6 @@ from tkinter import messagebox
 from tkinter.font import Font
 from app_settings import *
 import customtkinter as ctk
-from os import *
 from PIL import Image, ImageTk
 
 
