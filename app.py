@@ -36,6 +36,10 @@ class App:
         tick_icon=ImageTk.PhotoImage(image_tick.resize((30,30)))
         image_undo=Image.open('images/Undo.png')
         undo_icon=ImageTk.PhotoImage(image_undo.resize((30,30)))
+        image_create=Image.open('images/Create.png')
+        create_icon=ImageTk.PhotoImage(image_create.resize((70,70)))
+        image_cancel=Image.open('images/Cancel.png')
+        cancel_icon=ImageTk.PhotoImage(image_cancel.resize((70,70)))
 
 # --Font---------------------------------------------------------------------------
 
@@ -284,25 +288,29 @@ class App:
 
         self.subquestion_1 = Label(self.addtask_frame,
                                    text='Enter the name of your task:',
-                                   font=('Josefin Sans', 15),
+                                   font=('Josefin Sans', 17),
                                    background=help_bg_standard)
-        self.subquestion_1.place(relx=0.1, rely=0.2, anchor=tk.W)
+        self.subquestion_1.place(relx=0.1, rely=0.35, anchor=tk.W)
         self.task_entry = Entry(self.addtask_frame, font='Verdana 12',
-                                width=25, bd=0, borderwidth=0)
-        self.task_entry.place(relx=0.5, rely=0.25, anchor=tk.CENTER)
+                                width=25, bd=1, borderwidth=1)
+        self.task_entry.place(relx=0.5, rely=0.42, anchor=tk.CENTER)
 
        # Confirm Task & Cancel buttons:
 
-        self.button_frame = Frame(self.addtask_frame)
-        self.button_frame.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
-        self.confirm_button = Button(self.button_frame,
-                text='Create Task', command=lambda :
-                self.editList('Create'))
-        self.confirm_button.grid(row=0, column=0, padx=5)
+        self.button_frame = Frame(self.addtask_frame, background=help_bg_standard)
+        self.button_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+        self.confirm_button = Button(self.button_frame, image=create_icon, 
+                                     fg=text_colour, background=help_bg_standard,
+                                     bd=0, border=0, font=self.button_font,
+                                     command=lambda :self.editList('Create'))
+        self.confirm_button.grid(row=0, column=0, padx=30)
         self.clear_button = Button(self.button_frame, text='Cancel',
-                                    command=lambda :
-                                    self.editList('Clear'))
-        self.clear_button.grid(row=0, column=1, padx=5)
+                                   font=self.button_font,
+                                   fg=text_colour, image=cancel_icon,
+                                   background=help_bg_standard,
+                                   bd=0, border=0,
+                                   command=lambda : self.editList('Clear'))
+        self.clear_button.grid(row=0, column=1, padx=30)
 
        # Go to the add-task screen:
 
@@ -455,9 +463,9 @@ class App:
             self.saveList_frame=Frame(width=240,
                                       height=150,
                                       background=main_bg_standard,
-                                      highlightthickness=5,
-                                      highlightcolor=taskbar_bg_standard,
-                                      highlightbackground=taskbar_bg_standard)
+                                      highlightthickness=2,
+                                      highlightcolor=text_colour,
+                                      highlightbackground=text_colour)
             self.saveList_frame.place(relx=0.5, rely=0.5,
                                       anchor=tk.CENTER)
             self.saveList_label=Label(self.saveList_frame, 
@@ -493,8 +501,8 @@ class App:
                                         text="Save List", 
                                         command=saveList,
                                         highlightthickness=1,
-                                        background=taskbar_bg_standard,
-                                        bd=0,
+                                        background=text_colour,
+                                        bd=1,
                                         fg=main_bg_standard,
                                         font=self.button_font)
             self.saveList_button.place(relx=0.195, rely=0.8, anchor=tk.CENTER)
@@ -530,7 +538,7 @@ class App:
                                         text="Open List", 
                                         command=openList,
                                         highlightthickness=1,
-                                        background=taskbar_bg_standard,
+                                        background=text_colour,
                                         bd=0,
                                         fg=main_bg_standard,
                                         font=self.button_font)
@@ -543,7 +551,7 @@ class App:
                                       text="Cancel",
                                       command=cancel,
                                       highlightthickness=1,
-                                      background=taskbar_bg_standard,
+                                      background=text_colour,
                                       bd=0,
                                       fg=main_bg_standard,
                                       font=self.button_font)
