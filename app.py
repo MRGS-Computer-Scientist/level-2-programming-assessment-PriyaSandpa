@@ -32,11 +32,17 @@ class App:
         add_icon = ImageTk.PhotoImage(image_add.resize((50, 50)))
         image_exit = Image.open('images/Exit.png')
         exit_icon = ImageTk.PhotoImage(image_exit.resize((40, 40)))
+        image_tick=Image.open('images/Tick.png')
+        tick_icon=ImageTk.PhotoImage(image_tick.resize((30,30)))
+        image_undo=Image.open('images/Undo.png')
+        undo_icon=ImageTk.PhotoImage(image_undo.resize((30,30)))
 
 # --Font---------------------------------------------------------------------------
 
-        app_font = Font(family='Josefin Sans', weight='normal',
+        self.app_font = Font(family='Josefin Sans', weight='normal',
                         size='30')
+        self.button_font = Font(family='Default', weight='bold',
+                           size='10')
 
 # --Home Screen--------------------------------------------------------------------
         # Home-Frame
@@ -46,7 +52,7 @@ class App:
         self.home_frame.pack()
         self.home_frame.pack_propagate(False)
         self.home_label = Label(self.home_frame, text='Home',
-                                font=app_font,
+                                font=self.app_font,
                                 background=main_bg_standard,
                                 fg=text_colour)
         self.home_label.pack()
@@ -95,7 +101,7 @@ class App:
         self.dashboard_frame.pack_forget()
         self.dashboard_frame.pack_propagate(False)
         self.dashboard_label = Label(self.dashboard_frame,
-                text='Tasks/Habits', font=app_font,
+                text='Tasks/Habits', font=self.app_font,
                 background=main_bg_standard)
         self.dashboard_label.pack()
         self.todo_label = Label(self.dashboard_frame, text='To-do:',
@@ -132,17 +138,47 @@ class App:
             selectforeground=taskbar_bg_standard,
             )
         self.dbcompleted_list.place(relx=0.2, rely=0.55)
-        self.dbbutton_frame = Frame(self.dashboard_frame,
+        
+        self.dbbutton_frame_1 = Frame(self.dashboard_frame,
                                     background=main_bg_standard)
-        self.dbbutton_frame.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
-        self.complete_button = Button(self.dbbutton_frame,
-                text='Completed!', command=lambda :
-                self.switchList(self.dbtask_list, self.dbcompleted_list))
-        self.complete_button.grid(row=0, column=0, padx=5)
-        self.incomplete_button = Button(self.dbbutton_frame,
-                text='Incomplete', command=lambda :
-                self.switchList(self.dbcompleted_list, self.dbtask_list))
-        self.incomplete_button.grid(row=0, column=1, padx=5)
+        self.dbbutton_frame_1.place(relx=0.25, rely=0.85, anchor=tk.CENTER)
+        
+        self.dbbutton_frame_2 = Frame(self.dashboard_frame,
+                                    background=main_bg_standard)
+        self.dbbutton_frame_2.place(relx=0.75, rely=0.85, anchor=tk.CENTER)
+        
+        self.tick_button=Button(self.dbbutton_frame_1, 
+                                image=tick_icon, 
+                                bd=0,
+                                border=0,
+                                background=main_bg_standard,
+                                command=lambda : self.switchList(self.dbtask_list, self.dbcompleted_list))
+        self.tick_button.grid(row=0, column=0)
+        
+        self.complete_button = Button(self.dbbutton_frame_1,
+                                      bd=0, border=0,
+                                      text='Completed!', 
+                                      font=("Josefin Sans", 12),
+                                      background=main_bg_standard,
+                                      command=lambda : self.switchList(self.dbtask_list, self.dbcompleted_list))
+        self.complete_button.grid(row=0, column=1)
+        
+        self.undo_button=Button(self.dbbutton_frame_2, 
+                                image=undo_icon, 
+                                bd=0,
+                                border=0,
+                                background=main_bg_standard,
+                                command=lambda : self.switchList(self.dbcompleted_list, self.dbtask_list))
+        self.undo_button.grid(row=0, column=0)
+        
+        self.incomplete_button = Button(self.dbbutton_frame_2,
+                                        text='Incomplete', 
+                                        bd=0,
+                                        border=0,
+                                        background=main_bg_standard,
+                                        font=("Josefin Sans", 12),
+                                        command=lambda : self.switchList(self.dbcompleted_list, self.dbtask_list))
+        self.incomplete_button.grid(row=0, column=1)
 #--- Lists -----------------------------------------------------------------------
 
         self.tasks=[]
@@ -154,18 +190,6 @@ class App:
         for item in self.completed:
                 self.dbcompleted_list.insert(END, item)
 
-# --Save List Screen---------------------------------------------------------------
-
-        self.save_frame = Frame(background=main_bg_standard,
-                                    width=w_width, height=675)
-        self.save_frame.pack_forget()
-        self.save_frame.pack_propagate(False)
-        self.save_label = Label(self.save_frame, 
-                                text='Save', 
-                                font=app_font,
-                                background=main_bg_standard)
-        self.save_label.pack()
-
 # --Help Screen-------------------------------------------------------------------
 
         self.help_frame = Frame(background=help_bg_standard,
@@ -173,26 +197,29 @@ class App:
         self.help_frame.pack_forget()
         self.help_frame.pack_propagate(False)
         self.help_label = Label(self.help_frame, text='Help',
-                                font=app_font,
+                                font=self.app_font,
                                 background=help_bg_standard)
         self.help_label.pack()
 
         self.question_1= Label(self.help_frame,
                               text="Adding tasks to the list:",
                               font=('Josefin Sans', 15, UNDERLINE),
-                              justify='left')
+                              justify='left',
+                              background=help_bg_standard)
         self.question_1.place(relx=0.1, rely=0.2, anchor=tk.W)
         
         self.question_2= Label(self.help_frame,
                               text="Completing & Un-Completing\nTasks:",
-                              font=('Josefin Sans', 10, UNDERLINE),
-                              justify='left')
+                              font=('Josefin Sans', 15, UNDERLINE),
+                              justify='left',
+                              background=help_bg_standard)
         self.question_2.place(relx=0.1, rely=0.45, anchor=tk.W)
         
         self.question_3= Label(self.help_frame,
                               text="Saving & Opening Lists:",
-                              font=('Josefin Sans', 10, UNDERLINE),
-                              justify='left')
+                              font=('Josefin Sans', 15, UNDERLINE),
+                              justify='left',
+                              background=help_bg_standard)
         self.question_3.place(relx=0.1, rely=0.7, anchor=tk.W)
 
 # --Taskbar-----------------------------------------------------------------------
@@ -249,7 +276,7 @@ class App:
         self.addtask_frame.pack_forget()
         self.addtask_frame.pack_propagate(False)
         self.addtask_label = Label(self.addtask_frame, text='Add Task',
-                                   font=app_font,
+                                   font=self.app_font,
                                    background=help_bg_standard)
         self.addtask_label.pack()
 
@@ -423,13 +450,21 @@ class App:
             self.go_to_frame('Home')
 
         elif option == 'Save':
-            self.saveList_frame=Frame(width=250,
-                                 height=150)
+        
+        #Save List pop-up
+            self.saveList_frame=Frame(width=240,
+                                      height=150,
+                                      background=main_bg_standard,
+                                      highlightthickness=5,
+                                      highlightcolor=taskbar_bg_standard,
+                                      highlightbackground=taskbar_bg_standard)
             self.saveList_frame.place(relx=0.5, rely=0.5,
                                       anchor=tk.CENTER)
             self.saveList_label=Label(self.saveList_frame, 
-                                      text="Would you like to save your current list\nor open an existing one?")
-            self.saveList_label.place(relx=0.5, rely=0.2,
+                                      background=main_bg_standard,
+                                      text="Would you like to save\n your current list or\n open an existing one?",
+                                      font=("Josefin Sans", 12))
+            self.saveList_label.place(relx=0.5, rely=0.35,
                                       anchor=tk.CENTER)
             def saveList():
                 self.file_name = filedialog.asksaveasfilename(
@@ -456,8 +491,13 @@ class App:
 
             self.saveList_button=Button(self.saveList_frame,
                                         text="Save List", 
-                                        command=saveList)
-            self.saveList_button.place(relx=0.2, rely=0.8, anchor=tk.CENTER)
+                                        command=saveList,
+                                        highlightthickness=1,
+                                        background=taskbar_bg_standard,
+                                        bd=0,
+                                        fg=main_bg_standard,
+                                        font=self.button_font)
+            self.saveList_button.place(relx=0.195, rely=0.8, anchor=tk.CENTER)
 
             def openList():
                 self.file_name=filedialog.askopenfilename(
@@ -488,16 +528,27 @@ class App:
 
             self.openList_button=Button(self.saveList_frame,
                                         text="Open List", 
-                                        command=openList)
-            self.openList_button.place(relx=0.50, rely=0.8, anchor=tk.CENTER)
+                                        command=openList,
+                                        highlightthickness=1,
+                                        background=taskbar_bg_standard,
+                                        bd=0,
+                                        fg=main_bg_standard,
+                                        font=self.button_font)
+            self.openList_button.place(relx=0.53, rely=0.8, anchor=tk.CENTER)
             
             def cancel():
                 self.saveList_frame.destroy()
             
             self.cancel_button=Button(self.saveList_frame,
                                       text="Cancel",
-                                      command=cancel)
-            self.cancel_button.place(relx=0.8, rely=0.8, anchor=tk.CENTER)
+                                      command=cancel,
+                                      highlightthickness=1,
+                                      background=taskbar_bg_standard,
+                                      bd=0,
+                                      fg=main_bg_standard,
+                                      font=self.button_font)
+            
+            self.cancel_button.place(relx=0.83, rely=0.8, anchor=tk.CENTER)
             
 
 #This method is decides which list the tasks should be placed in when created, completed, and undone. 
