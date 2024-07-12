@@ -146,7 +146,6 @@ class App:
 
         self.tasks=["Task 1"]
         self.completed=["Habit 1"]
-
         for item in self.tasks:
             self.task_list.insert(END, item)
             self.dbtask_list.insert(END, item)
@@ -451,17 +450,18 @@ class App:
                     #delete currently open list before displaying saved list.
                     self.task_list.delete(0,END)
                     self.dbtask_list.delete(0,END)
+                    self.tasks.clear()
                     #Delete completed tasks before opening saved list.
                     self.dbcompleted_list.delete(0,END)
-
+                    self.completed.clear()
                     #Open saved list
                     self.input_file=open(self.file_name, 'rb')
-
                     stuff = pickle.load(self.input_file)
 
                     self.saveList_frame.destroy()
 
                     for item in stuff:
+                        self.tasks.append(item)
                         self.task_list.insert(END, item)
                         self.dbtask_list.insert(END, item)
                     
@@ -483,19 +483,29 @@ class App:
 #This method is decides which list the tasks should be placed in when created, completed, and undone. 
     def switchList(self, current, next):
         indexList=current.curselection()
+        
         if indexList:
             index=indexList[0]
             val=current.get(index)
             current.delete(index)
             next.insert(END, val)
-            #pass
+            
         if current==self.dbtask_list:
             self.task_list.delete(index)
-            self.progress_bar.step()
+            self.tasks.remove(val)
+            self.completed.append(val)
+            self.totalTasks= len(self.tasks)+len(self.completed)
+            step=len(self.completed)/self.totalTasks
+            self.progress_bar.set(int(self.progress_bar.get())+step)
             self.progress.configure(text=(int(self.progress_bar.get()* 100), '%'))
+
         if next==self.dbtask_list:
             self.task_list.insert(END, val)
-            self.progress_bar.set(int(self.progress_bar.get())-5.01)
+            self.tasks.append(val)
+            self.completed.remove(val)
+            self.totalTasks= len(self.tasks)+len(self.completed)
+            step=len(self.completed)/self.totalTasks
+            self.progress_bar.set(int(self.progress_bar.get())-step)
             self.progress.configure(text=(int(self.progress_bar.get()* 100), '%'))
 
 
