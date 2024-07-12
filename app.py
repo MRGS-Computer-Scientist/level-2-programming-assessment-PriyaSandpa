@@ -505,7 +505,7 @@ class App:
             self.completed.remove(val)
             self.totalTasks= len(self.tasks)+len(self.completed)
             step=len(self.completed)/self.totalTasks
-            self.progress_bar.set(int(self.progress_bar.get())-step)
+            self.progress_bar.set(int(self.progress_bar.get())+step)
             self.progress.configure(text=(int(self.progress_bar.get()* 100), '%'))
 
 
