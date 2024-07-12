@@ -67,6 +67,7 @@ class App:
                               font=('Josefin Sans semibold', 60),
                               background=main_bg_standard,
                               fg=text_colour)
+        self.progress.configure(text="0%")
         self.progress.place(relx=0.5, rely=0.3, anchor=tk.CENTER)
 
         # List
