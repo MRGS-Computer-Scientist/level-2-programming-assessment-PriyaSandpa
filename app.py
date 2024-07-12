@@ -210,21 +210,38 @@ class App:
                               font=('Josefin Sans', 15, UNDERLINE),
                               justify='left',
                               background=help_bg_standard)
-        self.question_1.place(relx=0.1, rely=0.2, anchor=tk.W)
+        self.question_1.place(relx=0.1, rely=0.15, anchor=tk.W)
+        self.answer_1= Label(self.help_frame,
+                              text="To add tasks to the list, press the '+' button on\nthe home screen. This will take you to the\n'Add Task' screen where you add the name of your\nask and press 'Create'. The task will appear on your\nhome screen list as well as your dashboard\nscreen list.",
+                              font=('Josefin Sans', 10),
+                              background=help_bg_standard)
+        self.answer_1.place(relx=0.5, rely=0.27, anchor=tk.CENTER)
         
         self.question_2= Label(self.help_frame,
                               text="Completing & Un-Completing\nTasks:",
                               font=('Josefin Sans', 15, UNDERLINE),
                               justify='left',
                               background=help_bg_standard)
-        self.question_2.place(relx=0.1, rely=0.45, anchor=tk.W)
+        self.question_2.place(relx=0.1, rely=0.43, anchor=tk.W)
         
+        self.answer_2= Label(self.help_frame,
+                              text="The button on the left of the taskbar takes you\nto the dashboard screen. The dashboard screen is\nwhere you can see both your incomplete and\ncompleted tasks. To mark a task as complete or\nincomplete, select the task from its corresponding list\nand (depending on what you want to do)\nclick on the 'Complete' or 'Incomplete' buttons\nat the bottom of the screen.",
+                              font=('Josefin Sans', 10),
+                              background=help_bg_standard)
+        self.answer_2.place(relx=0.5, rely=0.55, anchor=tk.CENTER)
+
         self.question_3= Label(self.help_frame,
                               text="Saving & Opening Lists:",
                               font=('Josefin Sans', 15, UNDERLINE),
                               justify='left',
                               background=help_bg_standard)
-        self.question_3.place(relx=0.1, rely=0.7, anchor=tk.W)
+        self.question_3.place(relx=0.1, rely=0.72, anchor=tk.W)
+
+        self.answer_3= Label(self.help_frame,
+                              text="This app does not support automatic saving yet.\nHence you have to save your task list at the end\n of each session and open your list at the start of\neach session. Press the last button on the taskbar.\nA pop-up should open and will ask you to save\nthe task as a file or open a pre-existing task file.",
+                              font=('Josefin Sans', 10),
+                              background=help_bg_standard)
+        self.answer_3.place(relx=0.5, rely=0.84, anchor=tk.CENTER)
 
 # --Taskbar-----------------------------------------------------------------------
 
