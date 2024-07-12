@@ -145,8 +145,8 @@ class App:
         self.incomplete_button.grid(row=0, column=1, padx=5)
 #--- Lists -----------------------------------------------------------------------
 
-        self.tasks=["Task 1"]
-        self.completed=["Habit 1"]
+        self.tasks=[]
+        self.completed=[]
         for item in self.tasks:
             self.task_list.insert(END, item)
             self.dbtask_list.insert(END, item)
@@ -160,9 +160,10 @@ class App:
                                     width=w_width, height=675)
         self.save_frame.pack_forget()
         self.save_frame.pack_propagate(False)
-        self.save_label = Label(self.save_frame, text='Save'
-                                    , font=app_font,
-                                    background=main_bg_standard)
+        self.save_label = Label(self.save_frame, 
+                                text='Save', 
+                                font=app_font,
+                                background=main_bg_standard)
         self.save_label.pack()
 
 # --Help Screen-------------------------------------------------------------------
@@ -175,6 +176,24 @@ class App:
                                 font=app_font,
                                 background=help_bg_standard)
         self.help_label.pack()
+
+        self.question_1= Label(self.help_frame,
+                              text="Adding tasks to the list:",
+                              font=('Josefin Sans', 15, UNDERLINE),
+                              justify='left')
+        self.question_1.place(relx=0.1, rely=0.2, anchor=tk.W)
+        
+        self.question_2= Label(self.help_frame,
+                              text="Completing & Un-Completing\nTasks:",
+                              font=('Josefin Sans', 10, UNDERLINE),
+                              justify='left')
+        self.question_2.place(relx=0.1, rely=0.45, anchor=tk.W)
+        
+        self.question_3= Label(self.help_frame,
+                              text="Saving & Opening Lists:",
+                              font=('Josefin Sans', 10, UNDERLINE),
+                              justify='left')
+        self.question_3.place(relx=0.1, rely=0.7, anchor=tk.W)
 
 # --Taskbar-----------------------------------------------------------------------
 
