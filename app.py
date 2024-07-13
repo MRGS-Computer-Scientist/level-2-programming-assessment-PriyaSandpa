@@ -75,12 +75,11 @@ class App:
         self.progress_bar.set(0)
         self.progress = Label(
             self.home_frame,
-            text="",
+            text="0/0",
             font=("Josefin Sans semibold", 60),
             background=main_bg_standard,
             fg=text_colour,
         )
-        self.progress.configure(text="0%")
         self.progress.place(relx=0.5, rely=0.3, anchor=tk.CENTER)
 
         # List
@@ -651,7 +650,7 @@ class App:
             self.totalTasks = len(self.tasks) + len(self.completed)
             step = len(self.completed) / self.totalTasks
             self.progress_bar.set(int(self.progress_bar.get()) + step)
-            self.progress.configure(text=(int(self.progress_bar.get() * 100), "%"))
+            self.progress.configure(text=(len(self.completed),"/", self.totalTasks))
 
         if next == self.dbtask_list:
             self.task_list.insert(END, val)
@@ -660,7 +659,7 @@ class App:
             self.totalTasks = len(self.tasks) + len(self.completed)
             step = len(self.completed) / self.totalTasks
             self.progress_bar.set(int(self.progress_bar.get()) + step)
-            self.progress.configure(text=(int(self.progress_bar.get() * 100), "%"))
+            self.progress.configure(text=(len(self.completed),"/", self.totalTasks))
 
 
 if __name__ == "__main__":
