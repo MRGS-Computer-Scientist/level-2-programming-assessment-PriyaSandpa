@@ -607,7 +607,7 @@ class App:
                     # Open saved list
                     self.input_file = open(self.file_name, "rb")
                     stuff = pickle.load(self.input_file)
-                    self.progress.config(text="0/0")
+                    self.progress.configure(text=(len(self.completed),"/", self.totalTasks))
                     self.progress_bar.set(0)
                     self.saveList_frame.destroy()
 
