@@ -239,7 +239,7 @@ class App:
         self.question_1.place(relx=0.1, rely=0.15, anchor=tk.W)
         self.answer_1 = Label(
             self.help_frame,
-            text="To add tasks to the list, press the '+' button on\nthe home screen. This will take you to the\n'Add Task' screen where you add the name of your\nask and press 'Create'. The task will appear on your\nhome screen list as well as your dashboard\nscreen list.",
+            text="To add tasks to the list, press the '+' button on\nthe home screen. This will take you to the\n'Add Task' screen where you add the name of your\ntask and press 'Create'. The task will appear on your\nhome screen list as well as your dashboard\nscreen list.",
             font=("Josefin Sans", 10),
             background=help_bg_standard,
         )
@@ -515,7 +515,7 @@ class App:
 
             else:
                 self.tasks.append(self.task_entry.get())
-                print(self.tasks)
+                print(self.tasks)#test to see if the tasks are being appended or not.
                 self.task_list.insert(END, self.tasks[-1])
                 self.dbtask_list.insert(END, self.tasks[-1])
                 self.task_entry.delete(0, END)
