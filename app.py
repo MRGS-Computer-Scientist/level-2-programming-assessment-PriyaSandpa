@@ -607,14 +607,14 @@ class App:
                     # Open saved list
                     self.input_file = open(self.file_name, "rb")
                     stuff = pickle.load(self.input_file)
-                    self.progress.configure(text=(len(self.completed),"/", self.totalTasks))
-                    self.progress_bar.set(0)
-                    self.saveList_frame.destroy()
-
                     for item in stuff:
                         self.tasks.append(item)
                         self.task_list.insert(END, item)
                         self.dbtask_list.insert(END, item)
+                    self.totalTasks = len(self.tasks) + len(self.completed)
+                    self.progress.configure(text=(len(self.completed),"/", self.totalTasks))
+                    self.progress_bar.set(0)
+                    self.saveList_frame.destroy()
 
             self.openList_button = Button(
                 self.saveList_frame,
