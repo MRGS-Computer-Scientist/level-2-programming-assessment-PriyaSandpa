@@ -554,24 +554,27 @@ class App:
             self.saveList_label.place(relx=0.5, rely=0.35, anchor=tk.CENTER)
 
             def saveList():
-                self.file_name = filedialog.asksaveasfilename(
-                    title="Save File",
-                    filetypes=(("Dat Files", "*.dat"), ("All Files", "*.*")),
-                )
-                if self.file_name:
-                    if self.file_name.endswith(".dat"):
-                        pass
-                    else:
-                        self.file_name = f"{self.file_name}.dat"
 
                 # grab all the stuff from the list
-                stuff = self.dbtask_list.get(0, END)
+                if len(self.tasks)>0:
+                    stuff = self.dbtask_list.get(0, END)
+                    self.file_name = filedialog.asksaveasfilename(
+                    title="Save File",
+                    filetypes=(("Dat Files", "*.dat"), ("All Files", "*.*")),
+                    )
+                    if self.file_name:
+                        if self.file_name.endswith(".dat"):
+                            pass
+                        else:
+                            self.file_name = f"{self.file_name}.dat"
+                     # open file
+                    output_file = open(self.file_name, "wb")
 
-                # open file
-                output_file = open(self.file_name, "wb")
+                    # actually add stuff to the file
+                    pickle.dump(stuff, output_file)
 
-                # actually add stuff to the file
-                pickle.dump(stuff, output_file)
+                else:
+                    messagebox.showerror("Error", "You can't save an empty list.")
 
                 self.saveList_frame.destroy()
 
