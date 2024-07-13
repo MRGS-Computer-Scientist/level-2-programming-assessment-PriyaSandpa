@@ -521,6 +521,9 @@ class App:
                 self.totalTasks = len(self.tasks) + len(self.completed)
                 step = len(self.completed) / self.totalTasks
                 self.progress_bar.set(int(self.progress_bar.get()) + step)
+                if int(self.progress_bar.get())==1:
+                    self.progress_bar.set(1-int(self.progress_bar.get()))
+                    self.progress_bar.set(int(self.progress_bar.get()) + step)
                 self.progress.configure(text=(len(self.completed),"/", self.totalTasks))
 
         elif option == "Clear":
