@@ -518,6 +518,10 @@ class App:
                 self.task_list.insert(END, self.tasks[-1])
                 self.dbtask_list.insert(END, self.tasks[-1])
                 self.task_entry.delete(0, END)
+                self.totalTasks = len(self.tasks) + len(self.completed)
+                step = len(self.completed) / self.totalTasks
+                self.progress_bar.set(int(self.progress_bar.get()) + step)
+                self.progress.configure(text=(len(self.completed),"/", self.totalTasks))
 
         elif option == "Clear":
 
@@ -597,7 +601,8 @@ class App:
                     # Open saved list
                     self.input_file = open(self.file_name, "rb")
                     stuff = pickle.load(self.input_file)
-
+                    self.progress.config(text="0/0")
+                    self.progress_bar.set(0)
                     self.saveList_frame.destroy()
 
                     for item in stuff:
